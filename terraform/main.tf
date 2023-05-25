@@ -1,7 +1,7 @@
-# Cria uma instância de banco de dados do Amazon RDS
-resource "aws_db_instance" "example" {
+# Cria uma instância de banco de dados do Amazon RDS - Clientes(ID, Nome)
+resource "aws_db_instance" "clients" {
   engine                = "mysql"
-  identifier            = "mysqlforlambdaterraform"
+  identifier            = "mysqlforlambdaterraformclients"
   allocated_storage     = 5
   max_allocated_storage = 100
   instance_class        = "db.t2.micro"
@@ -14,6 +14,24 @@ resource "aws_db_instance" "example" {
 
   vpc_security_group_ids = [aws_default_security_group.default.id]
 }
+
+# Cria uma outra instância de banco de dados do Amazon RDS - Produto(ID, Nome, Price)
+resource "aws_db_instance" "products" {
+  engine                = "mysql"
+  identifier            = "mysqlforlambdaterraformproducts"
+  allocated_storage     = 5
+  max_allocated_storage = 100
+  instance_class        = "db.t2.micro"
+  publicly_accessible   = false
+
+  db_name             = "ExampleDB"
+  username            = "admin"
+  password            = "senhaDoBancoDeDados"
+  skip_final_snapshot = true
+
+  vpc_security_group_ids = [aws_default_security_group.default.id]
+}
+
 
 # Cria um perfil de execução de função
 resource "aws_iam_role" "role" {
@@ -85,11 +103,18 @@ import logging
 import pymysql
 import json
 
-# rds settings
-rds_host  = "${aws_db_instance.example.endpoint}"[:-5]
-user_name = "admin"
-password  = "senhaDoBancoDeDados"
-db_name   = "ExampleDB"
+# rds settings db clients
+rds_host_clients  = "${aws_db_instance.clients.endpoint}"[:-5]
+user_name_clients = "admin"
+password_clients  = "senhaDoBancoDeDados"
+db_name_clients   = "ExampleDB"
+
+# rds settings db products
+rds_host_products  = "${aws_db_instance.products.endpoint}"[:-5]
+user_name_products = "admin"
+password_products  = "senhaDoBancoDeDados"
+db_name_products   = "ExampleDB"
+
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -97,13 +122,22 @@ logger.setLevel(logging.INFO)
 # create the database connection outside of the handler to allow connections to be
 # re-used by subsequent function invocations.
 try:
-    conn = pymysql.connect(host=rds_host, user=user_name, passwd=password, db=db_name, connect_timeout=5)
+    conn = pymysql.connect(host=rds_host_clients, user=user_name_clients, passwd=password_clients, db=db_name_clients, connect_timeout=5)
 except pymysql.MySQLError as e:
-    logger.error("ERROR: Unexpected error: Could not connect to MySQL instance.")
+    logger.error("ERROR: Unexpected error: Could not connect to MySQL instance - clients")
     logger.error(e)
     sys.exit()
 
-logger.info("SUCCESS: Connection to RDS MySQL instance succeeded")
+logger.info("SUCCESS: Connection to RDS MySQL instance (clients) succeeded")
+
+try:
+    conn2 = pymysql.connect(host=rds_host_products, user=user_name_products, passwd=password_products, db=db_name_products, connect_timeout=5)
+except pymysql.MySQLError as e:
+    logger.error("ERROR: Unexpected error: Could not connect to MySQL instance - products")
+    logger.error(e)
+    sys.exit()
+
+logger.info("SUCCESS: Connection to RDS MySQL instance (products) succeeded")
 
 def lambda_handler(event, context):
     """
@@ -111,24 +145,47 @@ def lambda_handler(event, context):
     """
     message = event['Records'][0]['body']
     data = json.loads(message)
-    CustID = data['CustID']
-    Name = data['Name']
+    #diferencia se é cliente ou produto
+    if 'CustID' in data:
+        CustID = data['CustID']
+        Name = data['Name']
 
-    item_count = 0
-    sql_string = f"insert into Customer (CustID, Name) values({CustID}, '{Name}')"
+        item_count = 0
+        sql_string = f"insert into Customer (CustID, Name) values({CustID}, '{Name}')"
 
-    with conn.cursor() as cur:
-        cur.execute("create table if not exists Customer ( CustID  int NOT NULL, Name varchar(255) NOT NULL, PRIMARY KEY (CustID))")
-        cur.execute(sql_string)
+        with conn.cursor() as cur:
+            cur.execute("create table if not exists Customer ( CustID  int NOT NULL, Name varchar(255) NOT NULL, PRIMARY KEY (CustID))")
+            cur.execute(sql_string)
+            conn.commit()
+            cur.execute("select * from Customer")
+            logger.info("The following items have been added to the database clients:")
+            for row in cur:
+                item_count += 1
+                logger.info(row)
         conn.commit()
-        cur.execute("select * from Customer")
-        logger.info("The following items have been added to the database:")
-        for row in cur:
-            item_count += 1
-            logger.info(row)
-    conn.commit()
 
-    return "Added %d items to RDS MySQL table" %(item_count)
+        return "Added %d items to RDS MySQL table" %(item_count)
+    else:
+        ProdID = data['ProdID']
+        Name = data['Name']
+        Price = data['Price']
+
+        item_count = 0
+        sql_string = f"insert into Product (ProdID, Name, Price) values({ProdID}, '{Name}', {Price})"
+
+        with conn2.cursor() as cur:
+        #price is float with two decimal places
+            cur.execute("create table if not exists Product ( ProdID  int NOT NULL, Name varchar(255) NOT NULL, Price float(10,2) NOT NULL, PRIMARY KEY (ProdID))")
+            cur.execute(sql_string)
+            conn2.commit()
+            cur.execute("select * from Product")
+            logger.info("The following items have been added to the database products:")
+            for row in cur:
+                item_count += 1
+                logger.info(row)
+        conn2.commit()
+
+        return "Added %d items to RDS MySQL table" %(item_count)
 EOF
 }
 
