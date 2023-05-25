@@ -26,10 +26,9 @@ Para seguir esse tutorial é necessário:
 ## Motivação
 
 Ao concluir esse roteiro, teremos provisionado uma arquitetura que contem uma função Lambda que grava dados em um dos dois banco de dados do Amazon RDS (clientes ou produtos), por meio da leitura de dados de uma fila do Amazon SQS sempre que uma mensagem é adicionada. 
-Ao usar o Lambda para acessar seu banco de dados, você pode ler e gravar dados em resposta a eventos. Sua função e instância de banco de dados também se escalam automaticamente para atender a períodos de alta demanda. Além disso, será enviado um e-mail para um endereço definido a fim de ser notificado quando o banco de dados for alterado.
+Ao usar o Lambda para acessar seu banco de dados, você pode ler e gravar dados em resposta a eventos. Sua função e instância de banco de dados também se escalam automaticamente para atender a períodos de alta demanda. Além disso, será enviado um e-mail para um endereço definido a fim de notificar quando o banco de dados for alterado.
 
 
-## Atualizar!!!!!!!!!!!!!!!
 ![](diagrama.png)
 ----------------------------------------------
 
