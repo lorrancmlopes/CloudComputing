@@ -324,5 +324,3 @@ resource "aws_cloudwatch_log_metric_filter" "lambda_log_filter_subscription" {
     value       = "1"
   }
 }
-
-
