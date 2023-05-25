@@ -253,21 +253,76 @@ resource "aws_lambda_event_source_mapping" "resource_queue" {
 }
 
 
-resource "aws_sns_topic" "example_topic" {
-  name = "example-topic"
+#Criando um tópico de notificações no SNS
+resource "aws_sns_topic" "sns_topic" {
+  name = "LambdaRDSTopic"
 }
 
+#variavel email_subscription
 variable "email_subscription" {
-  type    = string
-  default = "teste@al.insper.edu.br" # Insira seu email
+  type = string
+  default = "lorranloopes13@gmail.com"
 }
 
-resource "aws_sns_topic_subscription" "email_subscription" {
-  topic_arn = aws_sns_topic.example_topic.arn
+#Criando uma assinatura no tópico
+resource "aws_sns_topic_subscription" "sns_topic_subscription" {
+  topic_arn = aws_sns_topic.sns_topic.arn
   protocol  = "email"
   endpoint  = var.email_subscription
 }
 
-output "sns_arn" {
-  value = aws_sns_topic.example_topic.arn
+#Criando uma notificação para o tópico
+resource "aws_cloudwatch_metric_alarm" "sns_alarm" {
+  alarm_name          = "LambdaRDSAlarm"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "NumberOfMessagesSent"
+  namespace           = "AWS/SNS"
+  period              = "60"
+  statistic           = "Sum"
+  threshold           = "1"
+  alarm_description   = "This metric monitors sqs queue"
+  alarm_actions       = [aws_sns_topic.sns_topic.arn]
+  dimensions = {
+    TopicName = aws_sns_topic.sns_topic.name
+  }
 }
+
+resource "aws_cloudwatch_log_metric_filter" "lambda_log_filter" {
+  name           = "LambdaRDSLogFilter"
+  pattern        = "ERROR"
+  log_group_name = "/aws/lambda/LambdaFunctionWithRDS-terraform"
+  metric_transformation {
+    name        = "ErrorCount"
+    namespace   = "Custom/CloudWatchLogs"
+    value       = "1"
+    default_value = "0"
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "lambda_log_alarm" {
+  alarm_name          = "lambda-log-alarm"
+  alarm_description   = "Alarm triggered on CloudWatch Logs"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "ErrorCount"
+  namespace           = "Custom/CloudWatchLogs"
+  period              = "60"
+  statistic           = "SampleCount"
+  threshold           = "1"
+  alarm_actions       = [aws_sns_topic.sns_topic.arn]
+  treat_missing_data  = "missing"
+}
+
+resource "aws_cloudwatch_log_metric_filter" "lambda_log_filter_subscription" {
+  name           = "LambdaRDSLogFilterSubscription"
+  pattern        = "SubscriptionError"
+  log_group_name = "/aws/lambda/LambdaFunctionWithRDS-terraform"
+  metric_transformation {
+    name        = "SubscriptionErrorCount"
+    namespace   = "Custom/CloudWatchLogs"
+    value       = "1"
+  }
+}
+
+
