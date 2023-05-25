@@ -8,39 +8,41 @@
       
       
       
-      <link rel="shortcut icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.0.1">
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.14">
     
     
       
-        <title>Eletiva: Embarcados Avançados (SoC e Linux Embarcado)</title>
+        <title>Projeto: Computação em Nuvem - 2023.1</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.38780c08.min.css">
-      
-        
-        <link rel="stylesheet" href="assets/stylesheets/palette.3f72e892.min.css">
-        
-          
-          
-          <meta name="theme-color" content="#ffffff">
-        
-      
-    
-    
-    
+      <link rel="stylesheet" href="assets/stylesheets/main.85bb2934.min.css">
       
         
-        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+        <link rel="stylesheet" href="assets/stylesheets/palette.a6bdf11c.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
     
-    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+
+    
     
     
   </head>
@@ -51,16 +53,17 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="white" data-md-color-accent="pink">
-      
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="pink">
   
+    
+    
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
         
-        <a href="#coloque-aqui-o-nome-do-tutorial-de-voces" class="md-skip">
+        <a href="#roteiro-configuracao-de-uma-funcao-do-lambda-para-acessar-o-amazon-rds-em-uma-amazon-vpc" class="md-skip">
           Skip to content
         </a>
       
@@ -69,48 +72,62 @@
       
     </div>
     
-      <header class="md-header" data-md-component="header">
-  <nav class="md-header-nav md-grid" aria-label="Header">
-    <a href="." title="Eletiva: Embarcados Avançados (SoC e Linux Embarcado)" class="md-header-nav__button md-logo" aria-label="Eletiva: Embarcados Avançados (SoC e Linux Embarcado)">
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="Projeto: Computação em Nuvem - 2023.1" class="md-header__button md-logo" aria-label="Projeto: Computação em Nuvem - 2023.1" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
 
     </a>
-    <label class="md-header-nav__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
     </label>
-    <div class="md-header-nav__title" data-md-component="header-title">
-      
-        <div class="md-header-nav__ellipsis">
-          <span class="md-header-nav__topic md-ellipsis">
-            Eletiva: Embarcados Avançados (SoC e Linux Embarcado)
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Projeto: Computação em Nuvem - 2023.1
           </span>
-          <span class="md-header-nav__topic md-ellipsis">
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
             
               Home
             
           </span>
         </div>
-      
+      </div>
     </div>
     
-      <label class="md-header-nav__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-      </label>
       
-<div class="md-search" data-md-component="search" role="dialog">
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
       </label>
-      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-      </button>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -118,7 +135,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -127,29 +144,36 @@
     
     
   </nav>
+  
 </header>
     
     <div class="md-container" data-md-component="container">
       
       
         
+          
+        
       
       <main class="md-main" data-md-component="main">
         <div class="md-main__inner md-grid">
           
             
-              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
-                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="Eletiva: Embarcados Avançados (SoC e Linux Embarcado)" class="md-nav__button md-logo" aria-label="Eletiva: Embarcados Avançados (SoC e Linux Embarcado)">
+    <a href="." title="Projeto: Computação em Nuvem - 2023.1" class="md-nav__button md-logo" aria-label="Projeto: Computação em Nuvem - 2023.1" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
 
     </a>
-    Eletiva: Embarcados Avançados (SoC e Linux Embarcado)
+    Projeto: Computação em Nuvem - 2023.1
   </label>
   
   <ul class="md-nav__list" data-md-scrollfix>
@@ -159,26 +183,31 @@
       
 
   
-
-
-  <li class="md-nav__item md-nav__item--active">
+  
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
       
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Home
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
         Home
-        <span class="md-nav__icon md-icon"></span>
-      </label>
-    
-    <a href="." title="Home" class="md-nav__link md-nav__link--active">
-      Home
-    </a>
-    
+      </a>
       
+        
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
   
   
     
@@ -188,11 +217,11 @@
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-scrollfix>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#comecando" class="md-nav__link">
-    Começando
+  <a href="#pre-requisitos" class="md-nav__link">
+    Pré-requisitos
   </a>
   
 </li>
@@ -205,8 +234,71 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#recursos-markdown" class="md-nav__link">
-    Recursos Markdown
+  <a href="#_1" class="md-nav__link">
+    
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws" class="md-nav__link">
+    AWS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rds" class="md-nav__link">
+    RDS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#funcoes-aws-lambda" class="md-nav__link">
+    Funções AWS Lambda
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws-sqs" class="md-nav__link">
+    AWS SQS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#amazon-cloudwatch" class="md-nav__link">
+    Amazon CloudWatch
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iniciando-nossa-infraestrutura" class="md-nav__link">
+    Iniciando nossa infraestrutura
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testando-e-monitorando-a-infraestrutura" class="md-nav__link">
+    Testando e monitorando a infraestrutura
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#excluindo-a-infraestrutura" class="md-nav__link">
+    Excluindo a infraestrutura
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    Referências
   </a>
   
 </li>
@@ -214,8 +306,9 @@
     </ul>
   
 </nav>
-    
-  </li>
+      
+    </li>
+  
 
     
   </ul>
@@ -225,11 +318,14 @@
               </div>
             
             
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
   
   
     
@@ -239,11 +335,11 @@
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
-    <ul class="md-nav__list" data-md-scrollfix>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#comecando" class="md-nav__link">
-    Começando
+  <a href="#pre-requisitos" class="md-nav__link">
+    Pré-requisitos
   </a>
   
 </li>
@@ -256,8 +352,71 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#recursos-markdown" class="md-nav__link">
-    Recursos Markdown
+  <a href="#_1" class="md-nav__link">
+    
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws" class="md-nav__link">
+    AWS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rds" class="md-nav__link">
+    RDS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#funcoes-aws-lambda" class="md-nav__link">
+    Funções AWS Lambda
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws-sqs" class="md-nav__link">
+    AWS SQS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#amazon-cloudwatch" class="md-nav__link">
+    Amazon CloudWatch
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iniciando-nossa-infraestrutura" class="md-nav__link">
+    Iniciando nossa infraestrutura
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testando-e-monitorando-a-infraestrutura" class="md-nav__link">
+    Testando e monitorando a infraestrutura
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#excluindo-a-infraestrutura" class="md-nav__link">
+    Excluindo a infraestrutura
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    Referências
   </a>
   
 </li>
@@ -270,166 +429,719 @@
               </div>
             
           
-          <div class="md-content">
-            <article class="md-content__inner md-typeset">
-              
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
                 
-                
-                <h1 id="coloque-aqui-o-nome-do-tutorial-de-voces">Coloque aqui o nome do tutorial de vocês<a class="headerlink" href="#coloque-aqui-o-nome-do-tutorial-de-voces" title="Permanent link">&para;</a></h1>
+                  
+
+
+<h1 id="roteiro-configuracao-de-uma-funcao-do-lambda-para-acessar-o-amazon-rds-em-uma-amazon-vpc"><strong>Roteiro: configuração de uma função do Lambda para acessar o Amazon RDS em uma Amazon VPC</strong><a class="headerlink" href="#roteiro-configuracao-de-uma-funcao-do-lambda-para-acessar-o-amazon-rds-em-uma-amazon-vpc" title="Permanent link">&para;</a></h1>
 <ul>
-<li><strong>Alunes:</strong> .../ ... /...</li>
+<li><strong>Aluno:</strong> Lorran Caetano Machado Lopes</li>
 <li><strong>Curso:</strong> Engenharia da Computação</li>
-<li><strong>Semestre:</strong> 9</li>
-<li><strong>Contato:</strong> <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#99;&#111;&#114;&#115;&#105;&#102;&#101;&#114;&#114;&#97;&#111;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#99;&#111;&#114;&#115;&#105;&#102;&#101;&#114;&#114;&#97;&#111;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></li>
-<li><strong>Ano:</strong> 2020</li>
+<li><strong>Semestre:</strong> 6</li>
+<li><strong>Contato:</strong> <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#108;&#111;&#114;&#114;&#97;&#110;&#99;&#109;&#108;&#64;&#97;&#108;&#46;&#105;&#110;&#115;&#112;&#101;&#114;&#46;&#101;&#100;&#117;&#46;&#98;&#114;">&#108;&#111;&#114;&#114;&#97;&#110;&#99;&#109;&#108;&#64;&#97;&#108;&#46;&#105;&#110;&#115;&#112;&#101;&#114;&#46;&#101;&#100;&#117;&#46;&#98;&#114;</a></li>
+<li><strong>Ano:</strong> 2023</li>
 </ul>
-<h2 id="comecando">Começando<a class="headerlink" href="#comecando" title="Permanent link">&para;</a></h2>
+<h2 id="pre-requisitos">Pré-requisitos<a class="headerlink" href="#pre-requisitos" title="Permanent link">&para;</a></h2>
 <p>Para seguir esse tutorial é necessário:</p>
 <ul>
-<li><strong>Hardware:</strong> DE10-Standard e acessórios</li>
-<li><strong>Softwares:</strong> Quartus 18.01</li>
-<li><strong>Documentos:</strong> <a href="https://github.com/Insper/DE10-Standard-v.1.3.0-SystemCD/tree/master/Manual">DE10-Standard_User_manual.pdf</a></li>
+<li><strong>Ubuntu &gt; 20.0 ou WSL2</strong></li>
+<li><strong>Conta da AWS:</strong>  uma conta com permissões de administrador.</li>
+<li><strong>Terraform</strong> </li>
 </ul>
-<h2 id="motivacao">Motivação<a class="headerlink" href="#motivacao" title="Permanent link">&para;</a></h2>
-<p>Expliquem porque quiseram fazer esse tutorial.</p>
-<hr />
 <div class="admonition info">
 <p class="admonition-title">Info</p>
-<p>Essas duas partes são obrigatórias no tutorial:</p>
+<p>Você pode se cadastrar em uma conta da AWS aqui:</p>
 <ul>
-<li>Nome de vocês</li>
-<li>Começando</li>
-<li>Motivação</li>
+<li><a href="http://portal.aws.amazon.com/billing/signup">http://portal.aws.amazon.com/billing/signup</a></li>
+</ul>
+<p>Caso não tenha o Terraform instalado em sua máquina, você pode obtê-lo aqui:</p>
+<ul>
+<li><a href="https://developer.hashicorp.com/terraform/downloads">https://developer.hashicorp.com/terraform/downloads</a></li>
 </ul>
 </div>
-<h2 id="recursos-markdown">Recursos Markdown<a class="headerlink" href="#recursos-markdown" title="Permanent link">&para;</a></h2>
-<p>Vocês podem usar tudo que já sabem de markdown mais alguns recursos:</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Bloco de destaque de texto, pode ser:</p>
-<ul>
-<li>note, example, warning, info, tip, danger</li>
-</ul>
+<h2 id="motivacao">Motivação<a class="headerlink" href="#motivacao" title="Permanent link">&para;</a></h2>
+<p>Ao concluir esse roteiro, teremos provisionado uma arquitetura que contem uma função Lambda que grava dados em um banco de dados do Amazon RDS, por meio da leitura de dados de uma fila do Amazon SQS sempre que uma mensagem é adicionada. 
+Ao usar o Lambda para acessar seu banco de dados, você pode ler e gravar dados em resposta a eventos. Sua função e instância de banco de dados também se escalam automaticamente para atender a períodos de alta demanda.</p>
+<h2 id="_1"><img alt="" src="diagrama.png" /><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h2 id="aws">AWS<a class="headerlink" href="#aws" title="Permanent link">&para;</a></h2>
+<p>A Amazon Web Services (AWS) é a plataforma de nuvem mais adotada e mais abrangente do mundo, oferecendo mais de 200 serviços completos de datacenters em todo o mundo. Milhões de clientes, incluindo as startups que crescem mais rápido, as maiores empresas e os maiores órgãos governamentais, estão usando a AWS para reduzir custos, ganhar agilidade e inovar mais rapidamente.</p>
+<p>Para conseguir interagir com os serviços e funções que a AWS provém, por meio de IaC (Infrastructure as Code), é necessário obter <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html">chaves de acesso</a>, que permitam o gerenciamento e provisionamento dos recursos que desejamos alocar na nuvem.</p>
+<p>Guarde a chave de acesso para criar variáveis de ambiente antes de iniciar o Terraform, na fase final do roteiro.</p>
+<h2 id="rds">RDS<a class="headerlink" href="#rds" title="Permanent link">&para;</a></h2>
+<p>O Amazon RDS (Relational Database Service) é um serviço de banco de dados gerenciado da AWS que permite criar e gerenciar bancos de dados relacionais, como MySQL, PostgreSQL, Oracle, SQL Server, entre outros.
+O RDS gerencia tarefas como provisionamento de hardware, instalação de software, backup e recuperação, bem como monitoramento e dimensionamento automático.</p>
+<h2 id="funcoes-aws-lambda">Funções AWS Lambda<a class="headerlink" href="#funcoes-aws-lambda" title="Permanent link">&para;</a></h2>
+<p>O AWS Lambda é um serviço de computação sem servidor e orientado a eventos que permite executar código para praticamente qualquer tipo de aplicação ou serviço de backend sem provisionar ou gerenciar servidores. É possível acionar o Lambda a partir de mais de 200 serviços da AWS e aplicações de software como serviço (SaaS).
+Nesse roteiro, você irá usar o Lambda para abrir uma conexão com uma instância de banco de dados do Amazon RDS e para realizar operações de criação e leitura em um banco de dados do Amazon RDS.</p>
+<h2 id="aws-sqs">AWS SQS<a class="headerlink" href="#aws-sqs" title="Permanent link">&para;</a></h2>
+<p>O Amazon Simple Queue Service (AWS SQS) é um serviço de mensagens gerenciadas pela Amazon Web Services (AWS) que permite que diferentes componentes de um sistema se comuniquem entre si de forma assíncrona. Ele funciona como uma fila virtual, onde as mensagens são armazenadas até que sejam processadas pelos consumidores. O SQS garante a entrega das mensagens, mesmo em situações de alta demanda ou falhas temporárias, tornando-o uma solução escalável e confiável para sistemas distribuídos.</p>
+<h2 id="amazon-cloudwatch">Amazon CloudWatch<a class="headerlink" href="#amazon-cloudwatch" title="Permanent link">&para;</a></h2>
+<p>O Amazon CloudWatch é um serviço de monitoramento e observabilidade oferecido pela Amazon Web Services (AWS). Ele permite que você colete, monitore e analise métricas, logs e eventos gerados pelos recursos e aplicativos em execução na AWS. O CloudWatch oferece uma visão abrangente do desempenho e saúde dos seus sistemas, permitindo que você identifique problemas, tome decisões baseadas em dados e tome ações corretivas.</p>
+<h2 id="iniciando-nossa-infraestrutura">Iniciando nossa infraestrutura<a class="headerlink" href="#iniciando-nossa-infraestrutura" title="Permanent link">&para;</a></h2>
+<p>Crie uma pasta para organizar nossos arquivos chamada <strong>terraform</strong>:</p>
+<div class="highlight"><pre><span></span><code>mkdir terraform 
+cd terraform
+</code></pre></div>
+<p>Crie também um arquivo <strong>main.tf</strong>. Nele, criaremos todos os nossos <a href="https://developer.hashicorp.com/terraform/language/resources">recursos</a>.</p>
+<div class="highlight"><pre><span></span><code>touch main.tf
+</code></pre></div>
+<p>Primeiramente, iremos criar uma instância de banco de dados do Amazon RDS. Para tanto, podemos inserir o trecho abaxaixo no nosso <strong>main.tf</strong>:</p>
+<div class="highlight"><span class="filename">main.tf</span><pre><span></span><code><span class="c1"># Cria uma instância de banco de dados do Amazon RDS</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_db_instance&quot;</span><span class="w"> </span><span class="nv">&quot;example&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">engine</span><span class="w">                </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;mysql&quot;</span>
+<span class="w">  </span><span class="na">identifier</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;mysqlforlambdaterraform&quot;</span>
+<span class="w">  </span><span class="na">allocated_storage</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="m">5</span>
+<span class="w">  </span><span class="na">max_allocated_storage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span>
+<span class="w">  </span><span class="na">instance_class</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;db.t2.micro&quot;</span>
+<span class="w">  </span><span class="na">publicly_accessible</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="no">false</span>
+
+<span class="w">  </span><span class="na">db_name</span><span class="w">             </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;ExampleDB&quot;</span>
+<span class="w">  </span><span class="na">username</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;admin&quot;</span>
+<span class="w">  </span><span class="na">password</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;senhaDoBancoDeDados&quot;</span>
+<span class="w">  </span><span class="na">skip_final_snapshot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">true</span>
+
+<span class="w">  </span><span class="na">vpc_security_group_ids</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nv">aws_default_security_group.default.id</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img alt="⚠️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/svg/26a0.svg" title=":warning:" /> Você pode alterar o <strong>db_name</strong>, <strong>username</strong> e <strong>password</strong> pelos valores que você deseja para o seu banco de dados. <img alt="⚠️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/svg/26a0.svg" title=":warning:" /></p>
+<p>Agora, antes de criar sua função do Lambda, você deve criar um perfil de execução para dar à sua função as permissões necessárias. Para este roteiro, o Lambda precisa de permissão para gerenciar a conexão de rede com a Amazon VPC contendo sua instância de banco de dados, para pesquisar mensagens de uma fila do Amazon SQS e para criar grupos de logs, fluxos de logs e enviar eventos de logs. </p>
+<p>Faremos isso pelo IAM. Vamos adicionar a criação no <strong>main.tf</strong>.</p>
+<div class="highlight"><span class="filename">main.tf</span><pre><span></span><code><span class="c1"># Cria uma instância de banco de dados do Amazon RDS</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_db_instance&quot;</span><span class="w"> </span><span class="nv">&quot;example&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="hll"><span class="c1"># Cria um perfil de execução de função</span>
+</span><span class="hll"><span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_iam_role&quot;</span><span class="w"> </span><span class="nv">&quot;role&quot;</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">  </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;lambda-vpc-sqs-role-terraform&quot;</span>
+</span><span class="hll"><span class="w">  </span><span class="na">assume_role_policy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">jsonencode</span><span class="p">({</span>
+</span><span class="hll"><span class="w">    </span><span class="na">Version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;2012-10-17&quot;</span>
+</span><span class="hll"><span class="w">    </span><span class="na">Statement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[{</span>
+</span><span class="hll"><span class="w">      </span><span class="na">Action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;sts:AssumeRole&quot;</span>
+</span><span class="hll"><span class="w">      </span><span class="na">Effect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span>
+</span><span class="hll"><span class="w">      </span><span class="nb">Principal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">        </span><span class="na">Service</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;lambda.amazonaws.com&quot;</span>
+</span><span class="hll"><span class="w">      </span><span class="p">}</span>
+</span><span class="hll"><span class="w">    </span><span class="p">}]</span>
+</span><span class="hll"><span class="w">  </span><span class="p">})</span>
+</span><span class="hll"><span class="p">}</span>
+</span><span class="hll">
+</span><span class="hll"><span class="c1"># Cria uma policy </span>
+</span><span class="hll"><span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_iam_policy&quot;</span><span class="w"> </span><span class="nv">&quot;policy&quot;</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">  </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;necessary-policy&quot;</span>
+</span><span class="hll"><span class="w">  </span><span class="na">policy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">jsonencode</span><span class="p">({</span>
+</span><span class="hll"><span class="w">    </span><span class="s2">&quot;Version&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">    </span><span class="s2">&quot;Statement&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+</span><span class="hll"><span class="w">      </span><span class="p">{</span>
+</span><span class="hll"><span class="w">        </span><span class="s2">&quot;Sid&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;VisualEditor0&quot;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">        </span><span class="s2">&quot;Effect&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">        </span><span class="s2">&quot;Action&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+</span><span class="hll"><span class="w">          </span><span class="s2">&quot;ec2:CreateNetworkInterface&quot;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">          </span><span class="s2">&quot;ec2:DescribeNetworkInterfaces&quot;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">          </span><span class="s2">&quot;ec2:DeleteNetworkInterface&quot;</span>
+</span><span class="hll"><span class="w">        </span><span class="p">],</span>
+</span><span class="hll"><span class="w">        </span><span class="s2">&quot;Resource&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span>
+</span><span class="hll"><span class="w">      </span><span class="p">},</span>
+</span><span class="hll"><span class="w">      </span><span class="p">{</span>
+</span><span class="hll"><span class="w">        </span><span class="s2">&quot;Effect&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">        </span><span class="s2">&quot;Action&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+</span><span class="hll"><span class="w">          </span><span class="s2">&quot;sqs:ReceiveMessage&quot;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">          </span><span class="s2">&quot;sqs:DeleteMessage&quot;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">          </span><span class="s2">&quot;sqs:GetQueueAttributes&quot;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">          </span><span class="s2">&quot;sqs:SendMessage&quot;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">          </span><span class="s2">&quot;sqs:GetQueueUrl&quot;</span>
+</span><span class="hll"><span class="w">        </span><span class="p">],</span>
+</span><span class="hll"><span class="w">        </span><span class="s2">&quot;Resource&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span>
+</span><span class="hll"><span class="w">      </span><span class="p">},</span>
+</span><span class="hll"><span class="w">      </span><span class="p">{</span>
+</span><span class="hll"><span class="w">        </span><span class="s2">&quot;Effect&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">        </span><span class="s2">&quot;Action&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+</span><span class="hll"><span class="w">          </span><span class="s2">&quot;logs:CreateLogGroup&quot;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">          </span><span class="s2">&quot;logs:CreateLogStream&quot;</span><span class="p">,</span>
+</span><span class="hll"><span class="w">          </span><span class="s2">&quot;logs:PutLogEvents&quot;</span>
+</span><span class="hll"><span class="w">        </span><span class="p">],</span>
+</span><span class="hll"><span class="w">        </span><span class="s2">&quot;Resource&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;arn:aws:logs:*:*:*&quot;</span>
+</span><span class="hll"><span class="w">      </span><span class="p">}</span>
+</span><span class="hll"><span class="w">    </span><span class="p">]</span>
+</span><span class="hll"><span class="w">  </span><span class="p">})</span>
+</span><span class="hll"><span class="p">}</span>
+</span><span class="hll">
+</span><span class="hll">
+</span><span class="hll"><span class="c1">#associamos a policy à função IAM</span>
+</span><span class="hll"><span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_iam_role_policy_attachment&quot;</span><span class="w"> </span><span class="nv">&quot;example&quot;</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">  </span><span class="na">policy_arn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">aws_iam_policy.policy.arn</span>
+</span><span class="hll"><span class="w">  </span><span class="na">role</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="nv">aws_iam_role.role.name</span>
+</span><span class="hll"><span class="p">}</span>
+</span></code></pre></div>
+<p>Vamos agora criar o pacote de implantação do Lambda.</p>
+<p>Primeiramente, vamos criar uma pasta que servirá para a instalação da biblioca que usaremos no código Python e o arquivo em si, que serão compactados posteriormente.</p>
+<p>Rode o comando abaixo no terminal para criar a pasta com o nome <strong>source_lambda</strong>:</p>
+<p><div class="highlight"><pre><span></span><code>mkdir source_lambda 
+</code></pre></div>
+Agora, vamos instalar a biblioteca na pasta criada:</p>
+<div class="highlight"><pre><span></span><code>pip install --target source_lambda pymysql
+</code></pre></div>
+<p>Feito isso, vamos criar o nosso código para a função Lambda.</p>
+<p>O exemplo de código Python a seguir usa o pacote <a href="https://pymysql.readthedocs.io/en/latest/">PyMySQL</a> para abrir uma conexão com seu banco de dados. Na primeira vez que você invoca sua função, ela também cria uma nova tabela chamada Customer. A tabela usa o seguinte esquema, em que CustID é a chave primária:</p>
+<div class="highlight"><pre><span></span><code><span class="n">Customer</span><span class="p">(</span><span class="n">CustID</span><span class="p">,</span> <span class="n">Name</span><span class="p">)</span>
+</code></pre></div>
+<p>A função também usa a PyMySQL para adicionar registros a essa tabela. A função adiciona registros usando os IDs de clientes e nomes especificados nas mensagens que você adicionará à sua fila do Amazon SQS.</p>
+<p>Observe que o código cria a conexão com seu banco de dados fora da função do manipulador. A criação da conexão no código de inicialização permite que a conexão seja reutilizada por invocações subsequentes de sua função e melhora o desempenho. </p>
+<p>Adicione o novo trecho abaixo no seu <strong>main.tf</strong>:
+<div class="highlight"><span class="filename">main.tf</span><pre><span></span><code><span class="c1"># Cria uma instância de banco de dados do Amazon RDS</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_db_instance&quot;</span><span class="w"> </span><span class="nv">&quot;example&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1"># Cria um perfil de execução de função</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_iam_role&quot;</span><span class="w"> </span><span class="nv">&quot;role&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1"># Cria uma policy </span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_iam_policy&quot;</span><span class="w"> </span><span class="nv">&quot;policy&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1">#associamos a policy à função IAM</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_iam_role_policy_attachment&quot;</span><span class="w"> </span><span class="nv">&quot;example&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+<span class="hll">
+</span><span class="hll"><span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;local_file&quot;</span><span class="w"> </span><span class="nv">&quot;python_script&quot;</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">  </span><span class="na">filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;./source_lambda/lambda_function.py&quot;</span>
+</span><span class="hll"><span class="w">  </span><span class="na">content</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&lt;-</span><span class="dl">EOF</span>
+</span><span class="hll"><span class="sh">import sys</span>
+</span><span class="hll"><span class="sh">import logging</span>
+</span><span class="hll"><span class="sh">import pymysql</span>
+</span><span class="hll"><span class="sh">import json</span>
+</span><span class="hll">
+</span><span class="hll"><span class="sh"># rds settings</span>
+</span><span class="hll"><span class="sh">rds_host  = &quot;${aws_db_instance.example.endpoint}&quot;[:-5]</span>
+</span><span class="hll"><span class="sh">user_name = &quot;admin&quot;</span>
+</span><span class="hll"><span class="sh">password  = &quot;senhaDoBancoDeDados&quot;</span>
+</span><span class="hll"><span class="sh">db_name   = &quot;ExampleDB&quot;</span>
+</span><span class="hll">
+</span><span class="hll"><span class="sh">logger = logging.getLogger()</span>
+</span><span class="hll"><span class="sh">logger.setLevel(logging.INFO)</span>
+</span><span class="hll">
+</span><span class="hll"><span class="sh"># create the database connection outside of the handler to allow connections to be</span>
+</span><span class="hll"><span class="sh"># re-used by subsequent function invocations.</span>
+</span><span class="hll"><span class="sh">try:</span>
+</span><span class="hll"><span class="sh">    conn = pymysql.connect(host=rds_host, user=user_name, passwd=password, db=db_name, connect_timeout=5)</span>
+</span><span class="hll"><span class="sh">except pymysql.MySQLError as e:</span>
+</span><span class="hll"><span class="sh">    logger.error(&quot;ERROR: Unexpected error: Could not connect to MySQL instance.&quot;)</span>
+</span><span class="hll"><span class="sh">    logger.error(e)</span>
+</span><span class="hll"><span class="sh">    sys.exit()</span>
+</span><span class="hll">
+</span><span class="hll"><span class="sh">logger.info(&quot;SUCCESS: Connection to RDS MySQL instance succeeded&quot;)</span>
+</span><span class="hll">
+</span><span class="hll"><span class="sh">def lambda_handler(event, context):</span>
+</span><span class="hll"><span class="sh">    &quot;&quot;&quot;</span>
+</span><span class="hll"><span class="sh">    This function creates a new RDS database table and writes records to it</span>
+</span><span class="hll"><span class="sh">    &quot;&quot;&quot;</span>
+</span><span class="hll"><span class="sh">    message = event[&#39;Records&#39;][0][&#39;body&#39;]</span>
+</span><span class="hll"><span class="sh">    data = json.loads(message)</span>
+</span><span class="hll"><span class="sh">    CustID = data[&#39;CustID&#39;]</span>
+</span><span class="hll"><span class="sh">    Name = data[&#39;Name&#39;]</span>
+</span><span class="hll">
+</span><span class="hll"><span class="sh">    item_count = 0</span>
+</span><span class="hll"><span class="sh">    sql_string = f&quot;insert into Customer (CustID, Name) values({CustID}, &#39;{Name}&#39;)&quot;</span>
+</span><span class="hll">
+</span><span class="hll"><span class="sh">    with conn.cursor() as cur:</span>
+</span><span class="hll"><span class="sh">        cur.execute(&quot;create table if not exists Customer ( CustID  int NOT NULL, Name varchar(255) NOT NULL, PRIMARY KEY (CustID))&quot;)</span>
+</span><span class="hll"><span class="sh">        cur.execute(sql_string)</span>
+</span><span class="hll"><span class="sh">        conn.commit()</span>
+</span><span class="hll"><span class="sh">        cur.execute(&quot;select * from Customer&quot;)</span>
+</span><span class="hll"><span class="sh">        logger.info(&quot;The following items have been added to the database:&quot;)</span>
+</span><span class="hll"><span class="sh">        for row in cur:</span>
+</span><span class="hll"><span class="sh">            item_count += 1</span>
+</span><span class="hll"><span class="sh">            logger.info(row)</span>
+</span><span class="hll"><span class="sh">    conn.commit()</span>
+</span><span class="hll">
+</span><span class="hll"><span class="sh">    return &quot;Added %d items to RDS MySQL table&quot; %(item_count)</span>
+</span><span class="hll"><span class="dl">EOF</span>
+</span><span class="hll"><span class="p">}</span>
+</span></code></pre></div></p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Repare que o "rds_host" é explicitamente dependente do resource que cria o banco de dados. 
+Além disso, o slicing no final é feito pois a propriedade .endpoint retorna a porta ":3306", que a biblioteca pymsql já usa por padrão. </p>
 </div>
-<div class="admonition example">
-<p class="admonition-title">Faça assim</p>
-<p>É possível editar o título desses blocos</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Isso também é possível de ser feito, mas
-use com parcimonia.</p>
+<p>Use os valores de <strong>db_name</strong>, <strong>username</strong> e <strong>password</strong> pelos que você usou na criação do database.
+Em produção, é recomendado não codificar esses dados em função, mas sim usar o <a href="https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html">AWS Secrets Manager</a> para armazenar com segurança as credenciais de acesso ao banco de dados.</p>
 </div>
+<p>Agora, temos tudo para criar o nosso <strong>.zip</strong> para a função Lambda:</p>
+<div class="highlight"><span class="filename">main.tf</span><pre><span></span><code><span class="c1"># Cria uma instância de banco de dados do Amazon RDS</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_db_instance&quot;</span><span class="w"> </span><span class="nv">&quot;example&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1"># Cria um perfil de execução de função</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_iam_role&quot;</span><span class="w"> </span><span class="nv">&quot;role&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1"># Cria uma policy </span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_iam_policy&quot;</span><span class="w"> </span><span class="nv">&quot;policy&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1">#associamos a policy à função IAM</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_iam_role_policy_attachment&quot;</span><span class="w"> </span><span class="nv">&quot;example&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;local_file&quot;</span><span class="w"> </span><span class="nv">&quot;python_script&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="hll"><span class="kr">data</span><span class="w"> </span><span class="nc">&quot;archive_file&quot;</span><span class="w"> </span><span class="nv">&quot;lambda_archive&quot;</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">  </span><span class="na">depends_on</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nv">local_file.python_script</span><span class="p">]</span>
+</span><span class="hll"><span class="w">  </span><span class="na">source_dir</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;./source_lambda&quot;</span>
+</span><span class="hll"><span class="w">  </span><span class="na">output_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;lambda_function.zip&quot;</span>
+</span><span class="hll"><span class="w">  </span><span class="na">type</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;zip&quot;</span>
+</span><span class="hll"><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Repare que o <em>resource</em> "lambda_archive" é implicitamente dependente do <em>resource</em> que cria o arquivo .py. </p>
 </div>
-<details class="info"><summary>Info</summary><p>Também da para esconder o texto, usar para coisas
-muito grandes, ou exemplos de códigos.</p>
-<div class="highlight"><pre><span></span><code>...
+<p>Vamos criar nossa função Lambda. Fazemos isso por meio da inserção do resource abaixo:</p>
+<div class="highlight"><span class="filename">main.tf</span><pre><span></span><code><span class="c1"># Cria uma instância de banco de dados do Amazon RDS</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_db_instance&quot;</span><span class="w"> </span><span class="nv">&quot;example&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1"># Cria um perfil de execução de função</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_iam_role&quot;</span><span class="w"> </span><span class="nv">&quot;role&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1"># Cria uma policy </span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_iam_policy&quot;</span><span class="w"> </span><span class="nv">&quot;policy&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1">#associamos a policy à função IAM</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_iam_role_policy_attachment&quot;</span><span class="w"> </span><span class="nv">&quot;example&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1"># Cria o arquivo Python</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;local_file&quot;</span><span class="w"> </span><span class="nv">&quot;python_script&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1"># Cria o ZIP para a função Lambda</span>
+<span class="kr">data</span><span class="w"> </span><span class="nc">&quot;archive_file&quot;</span><span class="w"> </span><span class="nv">&quot;lambda_archive&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="hll"><span class="c1"># Cria a função Lambda</span>
+</span><span class="hll"><span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_lambda_function&quot;</span><span class="w"> </span><span class="nv">&quot;test_lambda&quot;</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">  </span><span class="na">filename</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;lambda_function.zip&quot;</span>
+</span><span class="hll"><span class="w">  </span><span class="na">function_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;LambdaFunctionWithRDS-terraform&quot;</span>
+</span><span class="hll"><span class="w">  </span><span class="na">role</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="nv">aws_iam_role.role.arn</span>
+</span><span class="hll"><span class="w">  </span><span class="na">handler</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;lambda_function.lambda_handler&quot;</span>
+</span><span class="hll"><span class="w">  </span><span class="na">runtime</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;python3.9&quot;</span>
+</span><span class="hll">
+</span><span class="hll"><span class="w">  </span><span class="nb">vpc_config</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">    </span><span class="na">subnet_ids</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="nv">aws_default_subnet.default</span><span class="p">[</span><span class="err">*</span><span class="p">].</span><span class="err">id</span>
+</span><span class="hll"><span class="w">    </span><span class="na">security_group_ids</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nv">aws_default_security_group.default.id</span><span class="p">]</span>
+</span><span class="hll"><span class="w">  </span><span class="p">}</span>
+</span><span class="hll">
+</span><span class="hll"><span class="w">  </span><span class="na">depends_on</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nv">data.archive_file.lambda_archive</span><span class="w"> </span><span class="p">]</span>
+</span><span class="hll"><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Repare que o <em>resource</em> "test_lambda" é explicitamente dependente do resource que cria o arquivo <strong>.zip</strong>. </p>
+</div>
+<p>Agora iremos configurar a VPC padrão que é usada pelo banco de dados e pelo Lambda.
+Também as mesmas sub-redes para ambos.
+Além disso, é preciso definir regra de entrada para a porta que o banco de dados usa (:3306) e regra de saída (deixaremos todas).</p>
+<div class="highlight"><span class="filename">main.tf</span><pre><span></span><code><span class="c1"># Cria uma instância de banco de dados do Amazon RDS</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_db_instance&quot;</span><span class="w"> </span><span class="nv">&quot;example&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1"># Cria um perfil de execução de função</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_iam_role&quot;</span><span class="w"> </span><span class="nv">&quot;role&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1"># Cria uma policy </span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_iam_policy&quot;</span><span class="w"> </span><span class="nv">&quot;policy&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1">#associamos a policy à função IAM</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_iam_role_policy_attachment&quot;</span><span class="w"> </span><span class="nv">&quot;example&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1"># Cria o arquivo Python</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;local_file&quot;</span><span class="w"> </span><span class="nv">&quot;python_script&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1"># Cria o ZIP para a função Lambda</span>
+<span class="kr">data</span><span class="w"> </span><span class="nc">&quot;archive_file&quot;</span><span class="w"> </span><span class="nv">&quot;lambda_archive&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1"># Cria a função Lambda</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_lambda_function&quot;</span><span class="w"> </span><span class="nv">&quot;test_lambda&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################ conseguimos subir um bucket privado de uso geral, podemos também modificar nossa inf</span>
+<span class="p">}</span>
 
 
+<span class="hll"><span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_default_subnet&quot;</span><span class="w"> </span><span class="nv">&quot;default&quot;</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">  </span><span class="na">count</span><span class="w">             </span><span class="o">=</span><span class="w"> </span><span class="m">6</span>
+</span><span class="hll"><span class="w">  </span><span class="na">availability_zone</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element</span><span class="p">([</span><span class="s2">&quot;us-east-1a&quot;, &quot;us-east-1b&quot;, &quot;us-east-1c&quot;, &quot;us-east-1d&quot;, &quot;us-east-1e&quot;, &quot;us-east-1f&quot;</span><span class="p">],</span><span class="w"> </span><span class="nv">count.index</span><span class="p">)</span>
+</span><span class="hll">
+</span><span class="hll"><span class="p">}</span>
+</span><span class="hll">
+</span><span class="hll"><span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_default_security_group&quot;</span><span class="w"> </span><span class="nv">&quot;default&quot;</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">  </span><span class="na">vpc_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">aws_default_vpc.default.id</span>
+</span><span class="hll">
+</span><span class="hll"><span class="w">  </span><span class="nb">ingress</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">    </span><span class="na">from_port</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="m">3306</span>
+</span><span class="hll"><span class="w">    </span><span class="na">to_port</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="m">3306</span>
+</span><span class="hll"><span class="w">    </span><span class="na">protocol</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tcp&quot;</span>
+</span><span class="hll"><span class="w">    </span><span class="na">cidr_blocks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;0.0.0.0/0&quot;</span><span class="p">]</span>
+</span><span class="hll"><span class="w">  </span><span class="p">}</span>
+</span><span class="hll">
+</span><span class="hll"><span class="w">  </span><span class="nb">egress</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">    </span><span class="na">from_port</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
+</span><span class="hll"><span class="w">    </span><span class="na">to_port</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="m">0</span>
+</span><span class="hll"><span class="w">    </span><span class="na">protocol</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;-1&quot;</span>
+</span><span class="hll"><span class="w">    </span><span class="na">cidr_blocks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;0.0.0.0/0&quot;</span><span class="p">]</span>
+</span><span class="hll"><span class="w">  </span><span class="p">}</span>
+</span><span class="hll">
+</span><span class="hll"><span class="p">}</span>
+</span><span class="hll">
+</span><span class="hll"><span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_default_vpc&quot;</span><span class="w"> </span><span class="nv">&quot;default&quot;</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="p">}</span>
+</span></code></pre></div>
+<p>Agora você deve criar a fila do Amazon SQS que usará para invocar sua função do Lambda:</p>
+<div class="highlight"><span class="filename">main.tf</span><pre><span></span><code><span class="c1"># Cria uma instância de banco de dados do Amazon RDS</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_db_instance&quot;</span><span class="w"> </span><span class="nv">&quot;example&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1"># Cria um perfil de execução de função</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_iam_role&quot;</span><span class="w"> </span><span class="nv">&quot;role&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1"># Cria uma policy </span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_iam_policy&quot;</span><span class="w"> </span><span class="nv">&quot;policy&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1">#associamos a policy à função IAM</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_iam_role_policy_attachment&quot;</span><span class="w"> </span><span class="nv">&quot;example&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1"># Cria o arquivo Python</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;local_file&quot;</span><span class="w"> </span><span class="nv">&quot;python_script&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1"># Cria o ZIP para a função Lambda</span>
+<span class="kr">data</span><span class="w"> </span><span class="nc">&quot;archive_file&quot;</span><span class="w"> </span><span class="nv">&quot;lambda_archive&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1"># Cria a função Lambda</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_lambda_function&quot;</span><span class="w"> </span><span class="nv">&quot;test_lambda&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
 
 
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_default_subnet&quot;</span><span class="w"> </span><span class="nv">&quot;default&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_default_security_group&quot;</span><span class="w"> </span><span class="nv">&quot;default&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_default_vpc&quot;</span><span class="w"> </span><span class="nv">&quot;default&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="p">}</span>
+
+<span class="hll"><span class="c1"># Cria uma fila do Amazon SQS</span>
+</span><span class="hll"><span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_sqs_queue&quot;</span><span class="w"> </span><span class="nv">&quot;my_queue&quot;</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">  </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;LambdaRDSQueue&quot;</span>
+</span><span class="hll"><span class="p">}</span>
+</span></code></pre></div>
+<p>Agora, iremos criar um <a href="https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventsourcemapping.html">mapeamento da origem do evento</a> para invocar sua função do Lambda. </p>
+<p>Um mapeamento da origem do evento é um recurso no Lambda que lê itens de um fluxo ou de uma fila e invoca uma função do Lambda. Ao configurar um mapeamento da origem do evento, você pode especificar um tamanho de lote para que os registros do seu fluxo ou da sua fila sejam agrupados em uma única carga útil. Neste exemplo, definiremos o tamanho do lote como 1 para que a função do Lambda seja invocada toda vez que você enviar uma mensagem para sua fila.</p>
+<div class="highlight"><span class="filename">main.tf</span><pre><span></span><code><span class="c1"># Cria uma instância de banco de dados do Amazon RDS</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_db_instance&quot;</span><span class="w"> </span><span class="nv">&quot;example&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1"># Cria um perfil de execução de função</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_iam_role&quot;</span><span class="w"> </span><span class="nv">&quot;role&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1"># Cria uma policy </span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_iam_policy&quot;</span><span class="w"> </span><span class="nv">&quot;policy&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1">#associamos a policy à função IAM</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_iam_role_policy_attachment&quot;</span><span class="w"> </span><span class="nv">&quot;example&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1"># Cria o arquivo Python</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;local_file&quot;</span><span class="w"> </span><span class="nv">&quot;python_script&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1"># Cria o ZIP para a função Lambda</span>
+<span class="kr">data</span><span class="w"> </span><span class="nc">&quot;archive_file&quot;</span><span class="w"> </span><span class="nv">&quot;lambda_archive&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
+
+<span class="c1"># Cria a função Lambda</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_lambda_function&quot;</span><span class="w"> </span><span class="nv">&quot;test_lambda&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
 
 
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_default_subnet&quot;</span><span class="w"> </span><span class="nv">&quot;default&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
 
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_default_security_group&quot;</span><span class="w"> </span><span class="nv">&quot;default&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
 
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_default_vpc&quot;</span><span class="w"> </span><span class="nv">&quot;default&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="p">}</span>
 
+<span class="c1"># Cria uma fila do Amazon SQS</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_sqs_queue&quot;</span><span class="w"> </span><span class="nv">&quot;my_queue&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">  #################</span>
+<span class="c1">  # Código omitido</span>
+<span class="c1">  ################</span>
+<span class="p">}</span>
 
-
-oi!
+<span class="hll"><span class="c1"># Cria um mapeamento da origem do evento para invocar sua função do Lambda</span>
+</span><span class="hll"><span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_lambda_event_source_mapping&quot;</span><span class="w"> </span><span class="nv">&quot;resource_queue&quot;</span><span class="w"> </span><span class="p">{</span>
+</span><span class="hll"><span class="w">  </span><span class="na">event_source_arn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">aws_sqs_queue.my_queue.arn</span>
+</span><span class="hll"><span class="w">  </span><span class="na">function_name</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nv">aws_lambda_function.test_lambda.function_name</span>
+</span><span class="hll"><span class="w">  </span><span class="na">batch_size</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="m">1</span>
+</span><span class="hll"><span class="p">}</span>
+</span></code></pre></div>
+<p>Agora temos tudo para efetivamente usar o <em>Terraform</em> para criar nossa infraestrutura definida em código. </p>
+<p>Para isso, certifique-se que você está com o terminal na pasta <strong>terraform</strong>.</p>
+<p>Então, criamos variáveis de ambiente com a chave que criamos no início:</p>
+<p><div class="highlight"><pre><span></span><code>export AWS_ACCESS_KEY_ID=&lt;ID_CHAVE_DE_ACESSO&gt;
+export AWS_SECRET_ACCESS_KEY=&lt;CHAVE_SECRETA_DE_ACESSO&gt;
 </code></pre></div>
-
-</details>
+Esse procedimento evita a exposição da senha.</p>
+<p>Também vamos exportar a região padrão, que nesse roteiro é "us-east-1":</p>
+<div class="highlight"><pre><span></span><code>export AWS_DEFAULT_REGION=&quot;us-east-1&quot;
+</code></pre></div>
+<p>Após isso, vamos iniciar os recursos terraform necessários para provisionar rodando o comando abaixo:</p>
+<div class="highlight"><pre><span></span><code>terraform init
+</code></pre></div>
+<p>Agora veremos o plano de criação desses recursos:
+<div class="highlight"><pre><span></span><code>terraform plan
+</code></pre></div></p>
+<p>Por fim, realize deploy dos recursos na nuvem:
+<div class="highlight"><pre><span></span><code>terraform apply -auto-approve
+</code></pre></div></p>
+<p>Em torno de 5 minutos, se tudo der certo, sua infraestrutura estará criada.</p>
+<p>Você pode verificar que o de banco de dados foi criado acessando este <a href="https://us-east-1.console.aws.amazon.com/rds/home?region=us-east-1#databases:">link</a>. O esperado é algo como na imagem abaixo:
+<img alt="" src="db.png" /></p>
+<p>A função do IAM criada pode ser visualizada <a href="https://us-east-1.console.aws.amazon.com/iamv2/home?region=us-east-1#/roles">aqui</a>. Ela possui as permissões definidas. 
+O esperado é algo como na imagem abaixo:
+<img alt="" src="iamrole.png" /></p>
+<p>Podemos conferir nossa função Lambda <a href="https://us-east-1.console.aws.amazon.com/lambda/home?region=us-east-1#/functions">aqui</a>.O esperado é algo como na imagem abaixo:
+<img alt="" src="lambda.png" /></p>
+<p>E nossa fila do SQS pode ser acessada <a href="https://us-east-1.console.aws.amazon.com/sqs/v2/home?region=us-east-1#/queues">aqui</a>. O esperado é algo como na imagem abaixo:
+<img alt="" src="sqs.png" /></p>
+<h2 id="testando-e-monitorando-a-infraestrutura">Testando e monitorando a infraestrutura<a class="headerlink" href="#testando-e-monitorando-a-infraestrutura" title="Permanent link">&para;</a></h2>
+<p>Para testar sua configuração completa, adicione mensagens à sua fila do Amazon SQS usando o console.
+Siga os passos abaixo:</p>
 <ul>
-<li><strong>Esse é um texto em destaque</strong></li>
-<li><mark>Pode fazer isso também</mark></li>
-</ul>
-<p>Usar emojis da lista:</p>
-<p><img alt="💕" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/svg/1f495.svg" title=":two_hearts:" /> - <a href="https://github.com/caiyongji/emoji-list">https://github.com/caiyongji/emoji-list</a></p>
-<div class="highlight"><pre><span></span><code><span class="c1">// da para colocar códigos</span>
- <span class="kt">void</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{}</span>
-</code></pre></div>
-
-<p>É legal usar abas para coisas desse tipo:</p>
-<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">C</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hello world!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<li>
+<p>Abra a <a href="https://us-east-1.console.aws.amazon.com/sqs/v2/home?region=us-east-1#/queues">página Filas</a> do console do Amazon SQS e selecione sua fila <code>(LambdaRDSQueue)</code>.</p>
+</li>
+<li>
+<p>Escolha <strong>Enviar e receber mensagens</strong> e cole o JSON a seguir no <strong>Corpo da mensagem</strong> no painel <strong>Enviar mensagem</strong>.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="s">&quot;CustID&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">404</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;Name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Rodolfo Avelino&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
-
-</div>
-<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">C++</label><div class="tabbed-content">
-<div class="highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Hello world!&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
-</div>
-</div>
-<p>Inserir vídeo:</p>
-<ul>
-<li>Abra o youtube <img alt="➡️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/svg/27a1.svg" title=":arrow_right:" /> clique com botão direito no vídeo <img alt="➡️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/svg/27a1.svg" title=":arrow_right:" /> copia código de incorporação:</li>
+<p><img alt="" src="sendMessage.png" /></p>
+</li>
+<li>
+<p>Escolha <strong>Send Message (Enviar mensagem)</strong>. Essa ação fará com que o Lambda invoque sua função por meio do mapeamento da origem do evento. </p>
+</li>
 </ul>
-<iframe width="630" height="450" src="https://www.youtube.com/embed/UIGsSLCoIhM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>Para confirmar que o Lambda invocou sua função conforme o esperado, usaremos o CloudWatch Logs para verificar se a função gravou o nome e o ID do cliente na tabela do seu banco de dados, por meio do grupo de logs criado pela função Lambda. Para isso, siga os passos abaixo:</p>
+<ul>
+<li>
+<p>Abra a página <a href="https://console.aws.amazon.com/cloudwatch/home#logsV2:log-groups">Grupos de logs</a> do console do CloudWatch e selecione o grupo de logs para sua função <code>(aws/lambda/LambdaFunctionWithRDS-terraform)</code>.</p>
+</li>
+<li>
+<p>No painel <strong>Fluxos de logs</strong>, escolha o fluxo de logs mais recente.</p>
+</li>
+</ul>
+<p>Sua tabela deve conter um registro de cliente, pois houve uma invocação da sua função. No fluxo de logs, você deverá ver mensagens semelhantes às seguintes:</p>
+<div class="highlight"><pre><span></span><code>    [INFO]  The following items have been added to the database:
+    [INFO] (404, &#39;Rodolfo Avelino&#39;)
+</code></pre></div>
+<p><img alt="" src="log.png" /></p>
+<h2 id="excluindo-a-infraestrutura">Excluindo a infraestrutura<a class="headerlink" href="#excluindo-a-infraestrutura" title="Permanent link">&para;</a></h2>
+<p>Para excluir os recursos criados para este roteiro, basta executar o comando abaixo:</p>
+<div class="highlight"><pre><span></span><code>terraform destroy -auto-approve
+</code></pre></div>
+<h2 id="referencias">Referências<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
+<p><a href="https://docs.aws.amazon.com/lambda/latest/dg/services-rds-tutorial.html#w122aac77d191c13c39">AWS Documentation</a></p>
 
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>Eu ajusto o tamanho do vídeo <code>width</code>/<code>height</code> para não ficar gigante na página</p>
-</div>
-<p>Imagens você insere como em plain markdown, mas tem a vantagem de poder mudar as dimensões com o marcador <code>{width=...}</code></p>
-<p><img alt="" src="icon-elementos.png" /></p>
-<p><img alt="" src="icon-elementos.png" width="200" /></p>
+
+
+
+
                 
-              
-              
-                
-
-
-              
-            </article>
-          </div>
+              </article>
+            </div>
+          
+          
         </div>
+        
       </main>
       
-        
-<footer class="md-footer">
+        <footer class="md-footer">
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
-      <div class="md-footer-copyright">
-        
-          <div class="md-footer-copyright__highlight">
-            Copyright &copy; 2019 / Prof. Rafael Corsi / rafael.corsi@insper.edu.br
-          </div>
-        
-        Made with
-        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-          Material for MkDocs
-        </a>
-      </div>
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 / Lorran Caetano Machado Lopes / lorrancml@al.insper.edu.br
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
       
     </div>
   </div>
 </footer>
       
     </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
     
-      <script src="assets/javascripts/vendor.77e55a48.min.js"></script>
-      <script src="assets/javascripts/bundle.aa3f9871.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
-      
-      <script>
-        app = initialize({
-          base: ".",
-          features: ['instant', 'navigation.expand', {'tabs': True}],
-          search: Object.assign({
-            worker: "assets/javascripts/worker/search.4ac00218.min.js"
-          }, typeof search !== "undefined" && search)
-        })
-      </script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["instant", "navigation.expand", {"tabs": true}], "search": "assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.b4d07000.min.js"></script>
       
     
   </body>

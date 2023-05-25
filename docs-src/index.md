@@ -25,9 +25,11 @@ Para seguir esse tutorial é necessário:
 
 ## Motivação
 
-Ao concluir esse roteiro, teremos provisionado uma arquitetura que contem uma função Lambda que grava dados em um banco de dados do Amazon RDS, por meio da leitura de dados de uma fila do Amazon SQS sempre que uma mensagem é adicionada. 
-Ao usar o Lambda para acessar seu banco de dados, você pode ler e gravar dados em resposta a eventos. Sua função e instância de banco de dados também se escalam automaticamente para atender a períodos de alta demanda.
+Ao concluir esse roteiro, teremos provisionado uma arquitetura que contem uma função Lambda que grava dados em um dos dois banco de dados do Amazon RDS (clientes ou produtos), por meio da leitura de dados de uma fila do Amazon SQS sempre que uma mensagem é adicionada. 
+Ao usar o Lambda para acessar seu banco de dados, você pode ler e gravar dados em resposta a eventos. Sua função e instância de banco de dados também se escalam automaticamente para atender a períodos de alta demanda. Além disso, será enviado um e-mail para um endereço definido a fim de ser notificado quando o banco de dados for alterado.
 
+
+## Atualizar!!!!!!!!!!!!!!!
 ![](diagrama.png)
 ----------------------------------------------
 
@@ -57,6 +59,12 @@ Nesse roteiro, você irá usar o Lambda para abrir uma conexão com uma instânc
 
 O Amazon Simple Queue Service (AWS SQS) é um serviço de mensagens gerenciadas pela Amazon Web Services (AWS) que permite que diferentes componentes de um sistema se comuniquem entre si de forma assíncrona. Ele funciona como uma fila virtual, onde as mensagens são armazenadas até que sejam processadas pelos consumidores. O SQS garante a entrega das mensagens, mesmo em situações de alta demanda ou falhas temporárias, tornando-o uma solução escalável e confiável para sistemas distribuídos.
 
+
+## Amazon Simple Notification Service (SNS)
+
+O SNS é um serviço de mensagens e notificação da AWS que permite enviar mensagens para diferentes tipos de endpoints como emails, mensagens de texto(SMS), URLs entre outros. Além disso, você pode configurar o acesso para quem pode publicar e para quem pode se inscrever no tópico.
+
+
 ## Amazon CloudWatch
 
 O Amazon CloudWatch é um serviço de monitoramento e observabilidade oferecido pela Amazon Web Services (AWS). Ele permite que você colete, monitore e analise métricas, logs e eventos gerados pelos recursos e aplicativos em execução na AWS. O CloudWatch oferece uma visão abrangente do desempenho e saúde dos seus sistemas, permitindo que você identifique problemas, tome decisões baseadas em dados e tome ações corretivas.
@@ -77,13 +85,13 @@ Crie também um arquivo **main.tf**. Nele, criaremos todos os nossos [recursos](
 touch main.tf
 ```
 
-Primeiramente, iremos criar uma instância de banco de dados do Amazon RDS. Para tanto, podemos inserir o trecho abaxaixo no nosso **main.tf**:
+Primeiramente, iremos criar duas instâncias de banco de dados do Amazon RDS, uma para clientes e outra para produtos. Para tanto, podemos inserir o trecho abaxaixo no nosso **main.tf**:
 
 ``` tf title="main.tf"
-# Cria uma instância de banco de dados do Amazon RDS
-resource "aws_db_instance" "example" {
+# Cria uma instância de banco de dados do Amazon RDS - Clientes(ID, Nome)
+resource "aws_db_instance" "clients" {
   engine                = "mysql"
-  identifier            = "mysqlforlambdaterraform"
+  identifier            = "mysqlforlambdaterraformclients"
   allocated_storage     = 5
   max_allocated_storage = 100
   instance_class        = "db.t2.micro"
@@ -96,22 +104,35 @@ resource "aws_db_instance" "example" {
 
   vpc_security_group_ids = [aws_default_security_group.default.id]
 }
+
+# Cria uma outra instância de banco de dados do Amazon RDS - Produto(ID, Nome, Price)
+resource "aws_db_instance" "products" {
+  engine                = "mysql"
+  identifier            = "mysqlforlambdaterraformproducts"
+  allocated_storage     = 5
+  max_allocated_storage = 100
+  instance_class        = "db.t2.micro"
+  publicly_accessible   = false
+
+  db_name             = "ExampleDB"
+  username            = "admin"
+  password            = "senhaDoBancoDeDados"
+  skip_final_snapshot = true
+
+  vpc_security_group_ids = [aws_default_security_group.default.id]
+}
+
 ```
 
-:warning: Você pode alterar o **db_name**, **username** e **password** pelos valores que você deseja para o seu banco de dados. :warning:
+:warning: Você pode alterar o **db_name**, **username** e **password** pelos valores que você deseja para os seus banco de dados. :warning:
 
 Agora, antes de criar sua função do Lambda, você deve criar um perfil de execução para dar à sua função as permissões necessárias. Para este roteiro, o Lambda precisa de permissão para gerenciar a conexão de rede com a Amazon VPC contendo sua instância de banco de dados, para pesquisar mensagens de uma fila do Amazon SQS e para criar grupos de logs, fluxos de logs e enviar eventos de logs. 
 
 Faremos isso pelo IAM. Vamos adicionar a criação no **main.tf**.
 
-``` tf title="main.tf" hl_lines="8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68"
-
-# Cria uma instância de banco de dados do Amazon RDS
-resource "aws_db_instance" "example" {
-  #################
-  # Código omitido
-  ################
-}
+``` tf title="main.tf"
+# Código já existente omitido
+# ...
 
 # Cria um perfil de execução de função
 resource "aws_iam_role" "role" {
@@ -195,45 +216,26 @@ pip install --target source_lambda pymysql
 
 Feito isso, vamos criar o nosso código para a função Lambda.
 
-O exemplo de código Python a seguir usa o pacote [PyMySQL](https://pymysql.readthedocs.io/en/latest/) para abrir uma conexão com seu banco de dados. Na primeira vez que você invoca sua função, ela também cria uma nova tabela chamada Customer. A tabela usa o seguinte esquema, em que CustID é a chave primária:
+O exemplo de código Python a seguir usa o pacote [PyMySQL](https://pymysql.readthedocs.io/en/latest/) para abrir uma conexão com seu banco de dados. Na primeira vez que você invoca sua função, ela também cria uma nova tabela chamada Customer e uma chamada Product, cada uma em um DB. A primeira usa o seguinte esquema, em que CustID é a chave primária:
 
 ```python
 Customer(CustID, Name)
 ```
 
-A função também usa a PyMySQL para adicionar registros a essa tabela. A função adiciona registros usando os IDs de clientes e nomes especificados nas mensagens que você adicionará à sua fila do Amazon SQS.
+E a segunda usa o seguinte, onde ProdID é a chave primária:
+
+```python
+Product (ProdID, Name, Price)
+```
+
+A função também usa a PyMySQL para adicionar registros a essa tabela. A função adiciona registros usando os IDs de clientes/produtos e nomes/e ou preços especificados nas mensagens que você adicionará à sua fila do Amazon SQS.
 
 Observe que o código cria a conexão com seu banco de dados fora da função do manipulador. A criação da conexão no código de inicialização permite que a conexão seja reutilizada por invocações subsequentes de sua função e melhora o desempenho. 
 
 Adicione o novo trecho abaixo no seu **main.tf**:
-``` tf title="main.tf" hl_lines="28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82"
-# Cria uma instância de banco de dados do Amazon RDS
-resource "aws_db_instance" "example" {
-  #################
-  # Código omitido
-  ################
-}
-
-# Cria um perfil de execução de função
-resource "aws_iam_role" "role" {
-  #################
-  # Código omitido
-  ################
-}
-
-# Cria uma policy 
-resource "aws_iam_policy" "policy" {
-  #################
-  # Código omitido
-  ################
-}
-
-#associamos a policy à função IAM
-resource "aws_iam_role_policy_attachment" "example" {
-  #################
-  # Código omitido
-  ################
-}
+``` tf title="main.tf" 
+# Código já existente omitido
+# ...
 
 resource "local_file" "python_script" {
   filename = "./source_lambda/lambda_function.py"
@@ -243,11 +245,18 @@ import logging
 import pymysql
 import json
 
-# rds settings
-rds_host  = "${aws_db_instance.example.endpoint}"[:-5]
-user_name = "admin"
-password  = "senhaDoBancoDeDados"
-db_name   = "ExampleDB"
+# rds settings db clients
+rds_host_clients  = "${aws_db_instance.clients.endpoint}"[:-5]
+user_name_clients = "admin"
+password_clients  = "senhaDoBancoDeDados"
+db_name_clients   = "ExampleDB"
+
+# rds settings db products
+rds_host_products  = "${aws_db_instance.products.endpoint}"[:-5]
+user_name_products = "admin"
+password_products  = "senhaDoBancoDeDados"
+db_name_products   = "ExampleDB"
+
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -255,13 +264,22 @@ logger.setLevel(logging.INFO)
 # create the database connection outside of the handler to allow connections to be
 # re-used by subsequent function invocations.
 try:
-    conn = pymysql.connect(host=rds_host, user=user_name, passwd=password, db=db_name, connect_timeout=5)
+    conn = pymysql.connect(host=rds_host_clients, user=user_name_clients, passwd=password_clients, db=db_name_clients, connect_timeout=5)
 except pymysql.MySQLError as e:
-    logger.error("ERROR: Unexpected error: Could not connect to MySQL instance.")
+    logger.error("ERROR: Unexpected error: Could not connect to MySQL instance - clients")
     logger.error(e)
     sys.exit()
 
-logger.info("SUCCESS: Connection to RDS MySQL instance succeeded")
+logger.info("SUCCESS: Connection to RDS MySQL instance (clients) succeeded")
+
+try:
+    conn2 = pymysql.connect(host=rds_host_products, user=user_name_products, passwd=password_products, db=db_name_products, connect_timeout=5)
+except pymysql.MySQLError as e:
+    logger.error("ERROR: Unexpected error: Could not connect to MySQL instance - products")
+    logger.error(e)
+    sys.exit()
+
+logger.info("SUCCESS: Connection to RDS MySQL instance (products) succeeded")
 
 def lambda_handler(event, context):
     """
@@ -269,75 +287,67 @@ def lambda_handler(event, context):
     """
     message = event['Records'][0]['body']
     data = json.loads(message)
-    CustID = data['CustID']
-    Name = data['Name']
+    #diferencia se é cliente ou produto
+    if 'CustID' in data:
+        CustID = data['CustID']
+        Name = data['Name']
 
-    item_count = 0
-    sql_string = f"insert into Customer (CustID, Name) values({CustID}, '{Name}')"
+        item_count = 0
+        sql_string = f"insert into Customer (CustID, Name) values({CustID}, '{Name}')"
 
-    with conn.cursor() as cur:
-        cur.execute("create table if not exists Customer ( CustID  int NOT NULL, Name varchar(255) NOT NULL, PRIMARY KEY (CustID))")
-        cur.execute(sql_string)
+        with conn.cursor() as cur:
+            cur.execute("create table if not exists Customer ( CustID  int NOT NULL, Name varchar(255) NOT NULL, PRIMARY KEY (CustID))")
+            cur.execute(sql_string)
+            conn.commit()
+            cur.execute("select * from Customer")
+            logger.info("The following items have been added to the database clients:")
+            for row in cur:
+                item_count += 1
+                logger.info(row)
         conn.commit()
-        cur.execute("select * from Customer")
-        logger.info("The following items have been added to the database:")
-        for row in cur:
-            item_count += 1
-            logger.info(row)
-    conn.commit()
 
-    return "Added %d items to RDS MySQL table" %(item_count)
+        return "Added %d items to RDS MySQL table" %(item_count)
+    else:
+        ProdID = data['ProdID']
+        Name = data['Name']
+        Price = data['Price']
+
+        item_count = 0
+        sql_string = f"insert into Product (ProdID, Name, Price) values({ProdID}, '{Name}', {Price})"
+
+        with conn2.cursor() as cur:
+        #price is float with two decimal places
+            cur.execute("create table if not exists Product ( ProdID  int NOT NULL, Name varchar(255) NOT NULL, Price float(10,2) NOT NULL, PRIMARY KEY (ProdID))")
+            cur.execute(sql_string)
+            conn2.commit()
+            cur.execute("select * from Product")
+            logger.info("The following items have been added to the database products:")
+            for row in cur:
+                item_count += 1
+                logger.info(row)
+        conn2.commit()
+
+        return "Added %d items to RDS MySQL table" %(item_count)
 EOF
 }
 
 ```
 
 !!! info 
-    Repare que o "rds_host" é explicitamente dependente do resource que cria o banco de dados. 
+    Repare que o "rds_host" é explicitamente dependente dos resources que criam os bancos de dados. 
     Além disso, o slicing no final é feito pois a propriedade .endpoint retorna a porta ":3306", que a biblioteca pymsql já usa por padrão. 
 
 !!! warning
-    Use os valores de **db_name**, **username** e **password** pelos que você usou na criação do database.
+    Use os valores de **db_name**, **username** e **password** pelos que você usou na criação dos databases.
     Em produção, é recomendado não codificar esses dados em função, mas sim usar o [AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html) para armazenar com segurança as credenciais de acesso ao banco de dados.
 
 
 Agora, temos tudo para criar o nosso **.zip** para a função Lambda:
 
 
-``` tf title="main.tf" hl_lines="35 36 37 38 39 40"
-# Cria uma instância de banco de dados do Amazon RDS
-resource "aws_db_instance" "example" {
-  #################
-  # Código omitido
-  ################
-}
-
-# Cria um perfil de execução de função
-resource "aws_iam_role" "role" {
-  #################
-  # Código omitido
-  ################
-}
-
-# Cria uma policy 
-resource "aws_iam_policy" "policy" {
-  #################
-  # Código omitido
-  ################
-}
-
-#associamos a policy à função IAM
-resource "aws_iam_role_policy_attachment" "example" {
-  #################
-  # Código omitido
-  ################
-}
-
-resource "local_file" "python_script" {
-  #################
-  # Código omitido
-  ################
-}
+``` tf title="main.tf"
+# Código já existente omitido
+# ...
 
 data "archive_file" "lambda_archive" {
   depends_on  = [local_file.python_script]
@@ -351,48 +361,9 @@ data "archive_file" "lambda_archive" {
 
 Vamos criar nossa função Lambda. Fazemos isso por meio da inserção do resource abaixo:
 
-``` tf title="main.tf" hl_lines="43 44 45 46 47 48 49 50 51 52 53 54 55 56 57"
-# Cria uma instância de banco de dados do Amazon RDS
-resource "aws_db_instance" "example" {
-  #################
-  # Código omitido
-  ################
-}
-
-# Cria um perfil de execução de função
-resource "aws_iam_role" "role" {
-  #################
-  # Código omitido
-  ################
-}
-
-# Cria uma policy 
-resource "aws_iam_policy" "policy" {
-  #################
-  # Código omitido
-  ################
-}
-
-#associamos a policy à função IAM
-resource "aws_iam_role_policy_attachment" "example" {
-  #################
-  # Código omitido
-  ################
-}
-
-# Cria o arquivo Python
-resource "local_file" "python_script" {
-  #################
-  # Código omitido
-  ################
-}
-
-# Cria o ZIP para a função Lambda
-data "archive_file" "lambda_archive" {
-  #################
-  # Código omitido
-  ################
-}
+``` tf title="main.tf" 
+# Código já existente omitido
+# ...
 
 # Cria a função Lambda
 resource "aws_lambda_function" "test_lambda" {
@@ -416,59 +387,13 @@ resource "aws_lambda_function" "test_lambda" {
 
 
 
-Agora iremos configurar a VPC padrão que é usada pelo banco de dados e pelo Lambda.
+Agora iremos configurar a VPC padrão que é usada pelos bancos de dados e pelo Lambda.
 Também as mesmas sub-redes para ambos.
-Além disso, é preciso definir regra de entrada para a porta que o banco de dados usa (:3306) e regra de saída (deixaremos todas).
+Além disso, é preciso definir regra de entrada para a porta que os bancos de dados usam (:3306) e regra de saída (deixaremos todas).
 
-``` tf title="main.tf" hl_lines="51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77"
-# Cria uma instância de banco de dados do Amazon RDS
-resource "aws_db_instance" "example" {
-  #################
-  # Código omitido
-  ################
-}
-
-# Cria um perfil de execução de função
-resource "aws_iam_role" "role" {
-  #################
-  # Código omitido
-  ################
-}
-
-# Cria uma policy 
-resource "aws_iam_policy" "policy" {
-  #################
-  # Código omitido
-  ################
-}
-
-#associamos a policy à função IAM
-resource "aws_iam_role_policy_attachment" "example" {
-  #################
-  # Código omitido
-  ################
-}
-
-# Cria o arquivo Python
-resource "local_file" "python_script" {
-  #################
-  # Código omitido
-  ################
-}
-
-# Cria o ZIP para a função Lambda
-data "archive_file" "lambda_archive" {
-  #################
-  # Código omitido
-  ################
-}
-
-# Cria a função Lambda
-resource "aws_lambda_function" "test_lambda" {
-  #################
-  # Código omitido
-  ################ conseguimos subir um bucket privado de uso geral, podemos também modificar nossa inf
-}
+``` tf title="main.tf" 
+# Código já existente omitido
+# ...
 
 
 resource "aws_default_subnet" "default" {
@@ -504,71 +429,9 @@ resource "aws_default_vpc" "default" {
 
 Agora você deve criar a fila do Amazon SQS que usará para invocar sua função do Lambda:
 
-``` tf title="main.tf" hl_lines="66 67 68 69 70 71 72 73 74 75 76 77"
-# Cria uma instância de banco de dados do Amazon RDS
-resource "aws_db_instance" "example" {
-  #################
-  # Código omitido
-  ################
-}
-
-# Cria um perfil de execução de função
-resource "aws_iam_role" "role" {
-  #################
-  # Código omitido
-  ################
-}
-
-# Cria uma policy 
-resource "aws_iam_policy" "policy" {
-  #################
-  # Código omitido
-  ################
-}
-
-#associamos a policy à função IAM
-resource "aws_iam_role_policy_attachment" "example" {
-  #################
-  # Código omitido
-  ################
-}
-
-# Cria o arquivo Python
-resource "local_file" "python_script" {
-  #################
-  # Código omitido
-  ################
-}
-
-# Cria o ZIP para a função Lambda
-data "archive_file" "lambda_archive" {
-  #################
-  # Código omitido
-  ################
-}
-
-# Cria a função Lambda
-resource "aws_lambda_function" "test_lambda" {
-  #################
-  # Código omitido
-  ################
-}
-
-
-resource "aws_default_subnet" "default" {
-  #################
-  # Código omitido
-  ################
-}
-
-resource "aws_default_security_group" "default" {
-  #################
-  # Código omitido
-  ################
-}
-
-resource "aws_default_vpc" "default" {
-}
+``` tf title="main.tf" 
+# Código já existente omitido
+# ...
 
 # Cria uma fila do Amazon SQS
 resource "aws_sqs_queue" "my_queue" {
@@ -583,78 +446,9 @@ Agora, iremos criar um [mapeamento da origem do evento](https://docs.aws.amazon.
 Um mapeamento da origem do evento é um recurso no Lambda que lê itens de um fluxo ou de uma fila e invoca uma função do Lambda. Ao configurar um mapeamento da origem do evento, você pode especificar um tamanho de lote para que os registros do seu fluxo ou da sua fila sejam agrupados em uma única carga útil. Neste exemplo, definiremos o tamanho do lote como 1 para que a função do Lambda seja invocada toda vez que você enviar uma mensagem para sua fila.
 
 
-``` tf title="main.tf" hl_lines="73 74 75 76 77 78"
-# Cria uma instância de banco de dados do Amazon RDS
-resource "aws_db_instance" "example" {
-  #################
-  # Código omitido
-  ################
-}
-
-# Cria um perfil de execução de função
-resource "aws_iam_role" "role" {
-  #################
-  # Código omitido
-  ################
-}
-
-# Cria uma policy 
-resource "aws_iam_policy" "policy" {
-  #################
-  # Código omitido
-  ################
-}
-
-#associamos a policy à função IAM
-resource "aws_iam_role_policy_attachment" "example" {
-  #################
-  # Código omitido
-  ################
-}
-
-# Cria o arquivo Python
-resource "local_file" "python_script" {
-  #################
-  # Código omitido
-  ################
-}
-
-# Cria o ZIP para a função Lambda
-data "archive_file" "lambda_archive" {
-  #################
-  # Código omitido
-  ################
-}
-
-# Cria a função Lambda
-resource "aws_lambda_function" "test_lambda" {
-  #################
-  # Código omitido
-  ################
-}
-
-
-resource "aws_default_subnet" "default" {
-  #################
-  # Código omitido
-  ################
-}
-
-resource "aws_default_security_group" "default" {
-  #################
-  # Código omitido
-  ################
-}
-
-resource "aws_default_vpc" "default" {
-}
-
-# Cria uma fila do Amazon SQS
-resource "aws_sqs_queue" "my_queue" {
-  #################
-  # Código omitido
-  ################
-}
+``` tf title="main.tf" 
+# Código já existente omitido
+# ...
 
 # Cria um mapeamento da origem do evento para invocar sua função do Lambda
 resource "aws_lambda_event_source_mapping" "resource_queue" {
@@ -663,6 +457,97 @@ resource "aws_lambda_event_source_mapping" "resource_queue" {
   batch_size       = 1
 }
 
+```
+
+Precisamos agora criar um sistema para notificar um determinado e-mail quando um registro for inserido no banco de dados.
+
+Para isso, faremos uso do SNS, que pode enviar notificações de diferentes modos. Utilizaremos o **e-mail** nesse roteiro.
+Vamos, então, configurá-lo. 
+
+Para isso, adicione, no main.tf, o seguinte código:
+
+``` tf title="main.tf" 
+# Código já existente omitido
+# ...
+#Criando um tópico de notificações no SNS
+resource "aws_sns_topic" "sns_topic" {
+  name = "LambdaRDSTopic"
+}
+
+#variavel email_subscription
+variable "email_subscription" {
+  type = string
+  default = "email_padrao@gmail.com"
+}
+
+#Criando uma assinatura no tópico
+resource "aws_sns_topic_subscription" "sns_topic_subscription" {
+  topic_arn = aws_sns_topic.sns_topic.arn
+  protocol  = "email"
+  endpoint  = var.email_subscription
+}
+```
+
+Vamos agora criar um alarme no Cloudwatch. Ele será o responsável por conectar a geração de logs da nossa função que insere dados nos bancos de dados ao SNS, que notificará o usuário via e-mail.
+
+O alarme que criaremos recebe o ARN do tópico que irá gerar a notificação, filtra o log específico da função Lambda e muda de estado (de OK para ALARM) conforme surgir log.
+
+Para fazer isso, adicionaremos o trecho abaixo no nosso código:
+
+``` tf title="main.tf" 
+#Criando uma notificação para o tópico
+resource "aws_cloudwatch_metric_alarm" "sns_alarm" {
+  alarm_name          = "LambdaRDSAlarm"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "NumberOfMessagesSent"
+  namespace           = "AWS/SNS"
+  period              = "60"
+  statistic           = "Sum"
+  threshold           = "1"
+  alarm_description   = "This metric monitors sqs queue"
+  alarm_actions       = [aws_sns_topic.sns_topic.arn]
+  dimensions = {
+    TopicName = aws_sns_topic.sns_topic.name
+  }
+}
+
+resource "aws_cloudwatch_log_metric_filter" "lambda_log_filter" {
+  name           = "LambdaRDSLogFilter"
+  pattern        = "ERROR"
+  log_group_name = "/aws/lambda/LambdaFunctionWithRDS-terraform"
+  metric_transformation {
+    name        = "ErrorCount"
+    namespace   = "Custom/CloudWatchLogs"
+    value       = "1"
+    default_value = "0"
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "lambda_log_alarm" {
+  alarm_name          = "lambda-log-alarm"
+  alarm_description   = "Alarm triggered on CloudWatch Logs"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = "1"
+  metric_name         = "ErrorCount"
+  namespace           = "Custom/CloudWatchLogs"
+  period              = "60"
+  statistic           = "SampleCount"
+  threshold           = "1"
+  alarm_actions       = [aws_sns_topic.sns_topic.arn]
+  treat_missing_data  = "missing"
+}
+
+resource "aws_cloudwatch_log_metric_filter" "lambda_log_filter_subscription" {
+  name           = "LambdaRDSLogFilterSubscription"
+  pattern        = "SubscriptionError"
+  log_group_name = "/aws/lambda/LambdaFunctionWithRDS-terraform"
+  metric_transformation {
+    name        = "SubscriptionErrorCount"
+    namespace   = "Custom/CloudWatchLogs"
+    value       = "1"
+  }
+}
 ```
 
 Agora temos tudo para efetivamente usar o *Terraform* para criar nossa infraestrutura definida em código. 
@@ -697,10 +582,13 @@ terraform plan
 
 Por fim, realize deploy dos recursos na nuvem:
 ```
-terraform apply -auto-approve
+terraform apply -var="<email_a_ser_notificado>" -auto-approve
 ```
 
-Em torno de 5 minutos, se tudo der certo, sua infraestrutura estará criada.
+Em torno de alguns minutos, se tudo der certo, sua infraestrutura estará criada.
+
+O e-mail cadastrado precisa confirmar que deseja receber notificações:
+![](email.png)
 
 
 Você pode verificar que o de banco de dados foi criado acessando este [link](https://us-east-1.console.aws.amazon.com/rds/home?region=us-east-1#databases:). O esperado é algo como na imagem abaixo:
@@ -716,6 +604,13 @@ Podemos conferir nossa função Lambda [aqui](https://us-east-1.console.aws.amaz
 E nossa fila do SQS pode ser acessada [aqui](https://us-east-1.console.aws.amazon.com/sqs/v2/home?region=us-east-1#/queues). O esperado é algo como na imagem abaixo:
 ![](sqs.png)
 
+O tópico SNS [aqui](https://us-east-1.console.aws.amazon.com/sns/v3/home?region=us-east-1#/topics)
+O esperado é algo como na imagem abaixo:
+![](sns.png)
+
+E o alarme [aqui](). 
+O esperado é algo como na imagem abaixo:
+![](alarme.png)
 
 ## Testando e monitorando a infraestrutura
 
@@ -724,7 +619,7 @@ Siga os passos abaixo:
 
 - Abra a [página Filas](https://us-east-1.console.aws.amazon.com/sqs/v2/home?region=us-east-1#/queues) do console do Amazon SQS e selecione sua fila ```(LambdaRDSQueue)```.
 
-- Escolha **Enviar e receber mensagens** e cole o JSON a seguir no **Corpo da mensagem** no painel **Enviar mensagem**.
+- Escolha **Enviar e receber mensagens** e cole o JSON a seguir (exemplo de um cliente) no **Corpo da mensagem** no painel **Enviar mensagem**.
 
     ```java
     {
@@ -752,6 +647,10 @@ Sua tabela deve conter um registro de cliente, pois houve uma invocação da sua
 ```
     
 ![](log.png)
+
+Você também deve ter recebido, ou receberá em poucos minutos, um e-mail com notificação do Alarme, como no exemplo abaixo:
+
+![](email2.png)
 
 
 ## Excluindo a infraestrutura
