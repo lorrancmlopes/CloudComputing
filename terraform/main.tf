@@ -251,3 +251,23 @@ resource "aws_lambda_event_source_mapping" "resource_queue" {
   function_name    = aws_lambda_function.test_lambda.function_name
   batch_size       = 1
 }
+
+
+resource "aws_sns_topic" "example_topic" {
+  name = "example-topic"
+}
+
+variable "email_subscription" {
+  type    = string
+  default = "teste@al.insper.edu.br" # Insira seu email
+}
+
+resource "aws_sns_topic_subscription" "email_subscription" {
+  topic_arn = aws_sns_topic.example_topic.arn
+  protocol  = "email"
+  endpoint  = var.email_subscription
+}
+
+output "sns_arn" {
+  value = aws_sns_topic.example_topic.arn
+}
