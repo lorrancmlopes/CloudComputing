@@ -494,12 +494,6 @@ O alarme que criaremos recebe o ARN do tópico que irá gerar a notificação, f
 Para fazer isso, adicionaremos o trecho abaixo no nosso código:
 
 ``` tf title="main.tf" 
-#Criando uma assinatura no tópico
-resource "aws_sns_topic_subscription" "sns_topic_subscription" {
-  topic_arn = aws_sns_topic.sns_topic.arn
-  protocol  = "email"
-  endpoint  = var.email
-}
 
 #Criando uma notificação para o tópico
 
