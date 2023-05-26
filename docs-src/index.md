@@ -612,7 +612,7 @@ Siga os passos abaixo:
     ```java
     {
         "ProdID": 404,
-        "Name": "Router"
+        "Name": "Router",
         "Price": 99.98
     }
     ```
