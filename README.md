@@ -2,7 +2,7 @@
 
 
 Projeto detalhado no site.
-Caso queria apenas rodar sem seguir o roteiro, clone e rode os comandos abaixo:
+Caso queria apenas rodar sem seguir o roteiro, clone e rode os comandos abaixo dentro da pasta do repositório:
 
 ```
 export AWS_ACCESS_KEY_ID=<ID_CHAVE_DE_ACESSO>
