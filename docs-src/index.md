@@ -582,7 +582,7 @@ O tópico SNS [aqui](https://us-east-1.console.aws.amazon.com/sns/v3/home?region
 O esperado é algo como na imagem abaixo:
 ![](sns.png)
 
-E o alarme [aqui](). 
+E o alarme [aqui](https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#alarmsV2:). 
 O esperado é algo como na imagem abaixo:
 ![](alarme.png)
 
@@ -606,6 +606,17 @@ Siga os passos abaixo:
     
 - Escolha **Send Message (Enviar mensagem)**. Essa ação fará com que o Lambda invoque sua função por meio do mapeamento da origem do evento. 
 
+
+!!! info 
+    Se quiser testar com um produto, use o JSON abaixo:
+    ```java
+    {
+        "ProdID": 404,
+        "Name": "Router"
+        "Price": 99.98
+    }
+    ```
+
 Para confirmar que o Lambda invocou sua função conforme o esperado, usaremos o CloudWatch Logs para verificar se a função gravou o nome e o ID do cliente na tabela do seu banco de dados, por meio do grupo de logs criado pela função Lambda. Para isso, siga os passos abaixo:
 
 
@@ -616,7 +627,7 @@ Para confirmar que o Lambda invocou sua função conforme o esperado, usaremos o
 Sua tabela deve conter um registro de cliente, pois houve uma invocação da sua função. No fluxo de logs, você deverá ver mensagens semelhantes às seguintes:
 
 ```
-    [INFO]  The following items have been added to the database:
+    [INFO]  The following items have been added to the database clients:
     [INFO] (404, 'Rodolfo Avelino')
 ```
     
