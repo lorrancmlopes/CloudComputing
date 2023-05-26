@@ -854,14 +854,7 @@ Vamos, então, configurá-lo. </p>
 <p>Vamos agora criar um alarme no Cloudwatch. Ele será o responsável por conectar a geração de logs da nossa função que insere dados nos bancos de dados ao SNS, que notificará o usuário via e-mail.</p>
 <p>O alarme que criaremos recebe o ARN do tópico que irá gerar a notificação, filtra o log específico da função Lambda e muda de estado (de OK para ALARM) conforme surgir log.</p>
 <p>Para fazer isso, adicionaremos o trecho abaixo no nosso código:</p>
-<div class="highlight"><span class="filename">main.tf</span><pre><span></span><code><span class="c1">#Criando uma assinatura no tópico</span>
-<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_sns_topic_subscription&quot;</span><span class="w"> </span><span class="nv">&quot;sns_topic_subscription&quot;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="na">topic_arn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">aws_sns_topic.sns_topic.arn</span>
-<span class="w">  </span><span class="na">protocol</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;email&quot;</span>
-<span class="w">  </span><span class="na">endpoint</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nv">var.email</span>
-<span class="p">}</span>
-
-<span class="c1">#Criando uma notificação para o tópico</span>
+<div class="highlight"><span class="filename">main.tf</span><pre><span></span><code><span class="c1">#Criando uma notificação para o tópico</span>
 
 <span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_cloudwatch_log_metric_filter&quot;</span><span class="w"> </span><span class="nv">&quot;lambda_log_filter&quot;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="na">name</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;LambdaRDSLogFilter&quot;</span>
