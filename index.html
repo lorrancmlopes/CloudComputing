@@ -916,7 +916,7 @@ O esperado é algo como na imagem abaixo:
 <p>O tópico SNS <a href="https://us-east-1.console.aws.amazon.com/sns/v3/home?region=us-east-1#/topics">aqui</a>
 O esperado é algo como na imagem abaixo:
 <img alt="" src="sns.png" /></p>
-<p>E o alarme <a href="">aqui</a>. 
+<p>E o alarme <a href="https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#alarmsV2:">aqui</a>. 
 O esperado é algo como na imagem abaixo:
 <img alt="" src="alarme.png" /></p>
 <h2 id="testando-e-monitorando-a-infraestrutura">Testando e monitorando a infraestrutura<a class="headerlink" href="#testando-e-monitorando-a-infraestrutura" title="Permanent link">&para;</a></h2>
@@ -939,6 +939,16 @@ Siga os passos abaixo:</p>
 <p>Escolha <strong>Send Message (Enviar mensagem)</strong>. Essa ação fará com que o Lambda invoque sua função por meio do mapeamento da origem do evento. </p>
 </li>
 </ul>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Se quiser testar com um produto, use o JSON abaixo:
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="s">&quot;ProdID&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">404</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;Name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Router&quot;</span>
+<span class="w">    </span><span class="s">&quot;Price&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">99.98</span>
+<span class="p">}</span>
+</code></pre></div></p>
+</div>
 <p>Para confirmar que o Lambda invocou sua função conforme o esperado, usaremos o CloudWatch Logs para verificar se a função gravou o nome e o ID do cliente na tabela do seu banco de dados, por meio do grupo de logs criado pela função Lambda. Para isso, siga os passos abaixo:</p>
 <ul>
 <li>
@@ -949,7 +959,7 @@ Siga os passos abaixo:</p>
 </li>
 </ul>
 <p>Sua tabela deve conter um registro de cliente, pois houve uma invocação da sua função. No fluxo de logs, você deverá ver mensagens semelhantes às seguintes:</p>
-<div class="highlight"><pre><span></span><code>    [INFO]  The following items have been added to the database:
+<div class="highlight"><pre><span></span><code>    [INFO]  The following items have been added to the database clients:
     [INFO] (404, &#39;Rodolfo Avelino&#39;)
 </code></pre></div>
 <p><img alt="" src="log.png" /></p>
