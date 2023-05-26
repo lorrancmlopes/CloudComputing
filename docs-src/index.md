@@ -474,7 +474,7 @@ resource "aws_sns_topic" "sns_topic" {
 }
 
 #variavel email_subscription
-variable "email_subscription" {
+variable "email" {
   type = string
   default = "email_padrao@gmail.com"
 }
@@ -483,7 +483,7 @@ variable "email_subscription" {
 resource "aws_sns_topic_subscription" "sns_topic_subscription" {
   topic_arn = aws_sns_topic.sns_topic.arn
   protocol  = "email"
-  endpoint  = var.email_subscription
+  endpoint  = var.email
 }
 ```
 
@@ -494,22 +494,14 @@ O alarme que criaremos recebe o ARN do tópico que irá gerar a notificação, f
 Para fazer isso, adicionaremos o trecho abaixo no nosso código:
 
 ``` tf title="main.tf" 
-#Criando uma notificação para o tópico
-resource "aws_cloudwatch_metric_alarm" "sns_alarm" {
-  alarm_name          = "LambdaRDSAlarm"
-  comparison_operator = "GreaterThanOrEqualToThreshold"
-  evaluation_periods  = "1"
-  metric_name         = "NumberOfMessagesSent"
-  namespace           = "AWS/SNS"
-  period              = "60"
-  statistic           = "Sum"
-  threshold           = "1"
-  alarm_description   = "This metric monitors sqs queue"
-  alarm_actions       = [aws_sns_topic.sns_topic.arn]
-  dimensions = {
-    TopicName = aws_sns_topic.sns_topic.name
-  }
+#Criando uma assinatura no tópico
+resource "aws_sns_topic_subscription" "sns_topic_subscription" {
+  topic_arn = aws_sns_topic.sns_topic.arn
+  protocol  = "email"
+  endpoint  = var.email
 }
+
+#Criando uma notificação para o tópico
 
 resource "aws_cloudwatch_log_metric_filter" "lambda_log_filter" {
   name           = "LambdaRDSLogFilter"
@@ -535,17 +527,6 @@ resource "aws_cloudwatch_metric_alarm" "lambda_log_alarm" {
   threshold           = "1"
   alarm_actions       = [aws_sns_topic.sns_topic.arn]
   treat_missing_data  = "missing"
-}
-
-resource "aws_cloudwatch_log_metric_filter" "lambda_log_filter_subscription" {
-  name           = "LambdaRDSLogFilterSubscription"
-  pattern        = "SubscriptionError"
-  log_group_name = "/aws/lambda/LambdaFunctionWithRDS-terraform"
-  metric_transformation {
-    name        = "SubscriptionErrorCount"
-    namespace   = "Custom/CloudWatchLogs"
-    value       = "1"
-  }
 }
 ```
 
@@ -581,7 +562,7 @@ terraform plan
 
 Por fim, realize deploy dos recursos na nuvem:
 ```
-terraform apply -var="<email_a_ser_notificado>" -auto-approve
+terraform apply -var="<email=seu_email@gmail.com>" -auto-approve
 ```
 
 Em torno de alguns minutos, se tudo der certo, sua infraestrutura estará criada.

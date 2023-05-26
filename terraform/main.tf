@@ -32,6 +32,8 @@ resource "aws_db_instance" "products" {
   vpc_security_group_ids = [aws_default_security_group.default.id]
 }
 
+# Código já existente omitido
+# ...
 
 # Cria um perfil de execução de função
 resource "aws_iam_role" "role" {
@@ -94,6 +96,7 @@ resource "aws_iam_role_policy_attachment" "example" {
   policy_arn = aws_iam_policy.policy.arn
   role       = aws_iam_role.role.name
 }
+
 
 resource "local_file" "python_script" {
   filename = "./source_lambda/lambda_function.py"
@@ -212,6 +215,8 @@ resource "aws_lambda_function" "test_lambda" {
   depends_on = [ data.archive_file.lambda_archive ]
 }
 
+
+
 resource "aws_default_subnet" "default" {
   count             = 6
   availability_zone = element(["us-east-1a", "us-east-1b", "us-east-1c", "us-east-1d", "us-east-1e", "us-east-1f"], count.index)
@@ -245,6 +250,7 @@ resource "aws_sqs_queue" "my_queue" {
   name = "LambdaRDSQueue"
 }
 
+
 # Cria um mapeamento da origem do evento para invocar sua função do Lambda
 resource "aws_lambda_event_source_mapping" "resource_queue" {
   event_source_arn = aws_sqs_queue.my_queue.arn
@@ -252,41 +258,25 @@ resource "aws_lambda_event_source_mapping" "resource_queue" {
   batch_size       = 1
 }
 
-
 #Criando um tópico de notificações no SNS
 resource "aws_sns_topic" "sns_topic" {
   name = "LambdaRDSTopic"
 }
 
 #variavel email_subscription
-variable "email_subscription" {
+variable "email" {
   type = string
-  default = "lorranloopes13@gmail.com"
+  default = "email_padrao@gmail.com"
 }
 
 #Criando uma assinatura no tópico
 resource "aws_sns_topic_subscription" "sns_topic_subscription" {
   topic_arn = aws_sns_topic.sns_topic.arn
   protocol  = "email"
-  endpoint  = var.email_subscription
+  endpoint  = var.email
 }
 
 #Criando uma notificação para o tópico
-resource "aws_cloudwatch_metric_alarm" "sns_alarm" {
-  alarm_name          = "LambdaRDSAlarm"
-  comparison_operator = "GreaterThanOrEqualToThreshold"
-  evaluation_periods  = "1"
-  metric_name         = "NumberOfMessagesSent"
-  namespace           = "AWS/SNS"
-  period              = "60"
-  statistic           = "Sum"
-  threshold           = "1"
-  alarm_description   = "This metric monitors sqs queue"
-  alarm_actions       = [aws_sns_topic.sns_topic.arn]
-  dimensions = {
-    TopicName = aws_sns_topic.sns_topic.name
-  }
-}
 
 resource "aws_cloudwatch_log_metric_filter" "lambda_log_filter" {
   name           = "LambdaRDSLogFilter"
@@ -312,15 +302,4 @@ resource "aws_cloudwatch_metric_alarm" "lambda_log_alarm" {
   threshold           = "1"
   alarm_actions       = [aws_sns_topic.sns_topic.arn]
   treat_missing_data  = "missing"
-}
-
-resource "aws_cloudwatch_log_metric_filter" "lambda_log_filter_subscription" {
-  name           = "LambdaRDSLogFilterSubscription"
-  pattern        = "SubscriptionError"
-  log_group_name = "/aws/lambda/LambdaFunctionWithRDS-terraform"
-  metric_transformation {
-    name        = "SubscriptionErrorCount"
-    namespace   = "Custom/CloudWatchLogs"
-    value       = "1"
-  }
 }
