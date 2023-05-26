@@ -1,4 +1,4 @@
-# **Roteiro: configuração de uma função do Lambda para acessar o Amazon RDS em uma Amazon VPC**
+# **Roteiro: Projeto Final com o tema AWS RDS**
 
 - **Aluno:** Lorran Caetano Machado Lopes
 - **Curso:** Engenharia da Computação
