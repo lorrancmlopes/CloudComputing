@@ -556,7 +556,7 @@ terraform plan
 
 Por fim, realize deploy dos recursos na nuvem:
 ```
-terraform apply -var="<email=seu_email@gmail.com>" -auto-approve
+terraform apply -var="email=seu_email@gmail.com" -auto-approve
 ```
 
 Em torno de alguns minutos, se tudo der certo, sua infraestrutura estará criada.
