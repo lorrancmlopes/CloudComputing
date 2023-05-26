@@ -839,7 +839,7 @@ Vamos, então, configurá-lo. </p>
 <span class="p">}</span>
 
 <span class="c1">#variavel email_subscription</span>
-<span class="kr">variable</span><span class="w"> </span><span class="nv">&quot;email_subscription&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="kr">variable</span><span class="w"> </span><span class="nv">&quot;email&quot;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="na">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
 <span class="w">  </span><span class="na">default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;email_padrao@gmail.com&quot;</span>
 <span class="p">}</span>
@@ -848,28 +848,20 @@ Vamos, então, configurá-lo. </p>
 <span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_sns_topic_subscription&quot;</span><span class="w"> </span><span class="nv">&quot;sns_topic_subscription&quot;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="na">topic_arn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">aws_sns_topic.sns_topic.arn</span>
 <span class="w">  </span><span class="na">protocol</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;email&quot;</span>
-<span class="w">  </span><span class="na">endpoint</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nv">var.email_subscription</span>
+<span class="w">  </span><span class="na">endpoint</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nv">var.email</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Vamos agora criar um alarme no Cloudwatch. Ele será o responsável por conectar a geração de logs da nossa função que insere dados nos bancos de dados ao SNS, que notificará o usuário via e-mail.</p>
 <p>O alarme que criaremos recebe o ARN do tópico que irá gerar a notificação, filtra o log específico da função Lambda e muda de estado (de OK para ALARM) conforme surgir log.</p>
 <p>Para fazer isso, adicionaremos o trecho abaixo no nosso código:</p>
-<div class="highlight"><span class="filename">main.tf</span><pre><span></span><code><span class="c1">#Criando uma notificação para o tópico</span>
-<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_cloudwatch_metric_alarm&quot;</span><span class="w"> </span><span class="nv">&quot;sns_alarm&quot;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="na">alarm_name</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;LambdaRDSAlarm&quot;</span>
-<span class="w">  </span><span class="na">comparison_operator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;GreaterThanOrEqualToThreshold&quot;</span>
-<span class="w">  </span><span class="na">evaluation_periods</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;1&quot;</span>
-<span class="w">  </span><span class="na">metric_name</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;NumberOfMessagesSent&quot;</span>
-<span class="w">  </span><span class="na">namespace</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;AWS/SNS&quot;</span>
-<span class="w">  </span><span class="na">period</span><span class="w">              </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;60&quot;</span>
-<span class="w">  </span><span class="na">statistic</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Sum&quot;</span>
-<span class="w">  </span><span class="na">threshold</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;1&quot;</span>
-<span class="w">  </span><span class="na">alarm_description</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;This metric monitors sqs queue&quot;</span>
-<span class="w">  </span><span class="na">alarm_actions</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nv">aws_sns_topic.sns_topic.arn</span><span class="p">]</span>
-<span class="w">  </span><span class="nb">dimensions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="na">TopicName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">aws_sns_topic.sns_topic.name</span>
-<span class="w">  </span><span class="p">}</span>
+<div class="highlight"><span class="filename">main.tf</span><pre><span></span><code><span class="c1">#Criando uma assinatura no tópico</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_sns_topic_subscription&quot;</span><span class="w"> </span><span class="nv">&quot;sns_topic_subscription&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">topic_arn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">aws_sns_topic.sns_topic.arn</span>
+<span class="w">  </span><span class="na">protocol</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;email&quot;</span>
+<span class="w">  </span><span class="na">endpoint</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nv">var.email</span>
 <span class="p">}</span>
+
+<span class="c1">#Criando uma notificação para o tópico</span>
 
 <span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_cloudwatch_log_metric_filter&quot;</span><span class="w"> </span><span class="nv">&quot;lambda_log_filter&quot;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="na">name</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;LambdaRDSLogFilter&quot;</span>
@@ -896,17 +888,6 @@ Vamos, então, configurá-lo. </p>
 <span class="w">  </span><span class="na">alarm_actions</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nv">aws_sns_topic.sns_topic.arn</span><span class="p">]</span>
 <span class="w">  </span><span class="na">treat_missing_data</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;missing&quot;</span>
 <span class="p">}</span>
-
-<span class="kr">resource</span><span class="w"> </span><span class="nc">&quot;aws_cloudwatch_log_metric_filter&quot;</span><span class="w"> </span><span class="nv">&quot;lambda_log_filter_subscription&quot;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="na">name</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;LambdaRDSLogFilterSubscription&quot;</span>
-<span class="w">  </span><span class="na">pattern</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;SubscriptionError&quot;</span>
-<span class="w">  </span><span class="na">log_group_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/aws/lambda/LambdaFunctionWithRDS-terraform&quot;</span>
-<span class="w">  </span><span class="nb">metric_transformation</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="na">name</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;SubscriptionErrorCount&quot;</span>
-<span class="w">    </span><span class="na">namespace</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Custom/CloudWatchLogs&quot;</span>
-<span class="w">    </span><span class="na">value</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;1&quot;</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
 </code></pre></div>
 <p>Agora temos tudo para efetivamente usar o <em>Terraform</em> para criar nossa infraestrutura definida em código. </p>
 <p>Para isso, certifique-se que você está com o terminal na pasta <strong>terraform</strong>.</p>
@@ -925,7 +906,7 @@ Esse procedimento evita a exposição da senha.</p>
 <div class="highlight"><pre><span></span><code>terraform plan
 </code></pre></div></p>
 <p>Por fim, realize deploy dos recursos na nuvem:
-<div class="highlight"><pre><span></span><code>terraform apply -var=&quot;&lt;email_a_ser_notificado&gt;&quot; -auto-approve
+<div class="highlight"><pre><span></span><code>terraform apply -var=&quot;&lt;email=seu_email@gmail.com&gt;&quot; -auto-approve
 </code></pre></div></p>
 <p>Em torno de alguns minutos, se tudo der certo, sua infraestrutura estará criada.</p>
 <p>O e-mail cadastrado precisa confirmar que deseja receber notificações:
